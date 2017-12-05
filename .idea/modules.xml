@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/QuickVideo.iml" filepath="$PROJECT_DIR$/QuickVideo.iml" />
+      <module fileurl="file://E:\qixi\QuickVideo\QuickVideo.iml" filepath="E:\qixi\QuickVideo\QuickVideo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\qixi\QuickVideo\app\app.iml" filepath="E:\qixi\QuickVideo\app\app.iml" />
     </modules>
   </component>
 </project>
