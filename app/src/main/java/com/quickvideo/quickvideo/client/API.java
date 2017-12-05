@@ -6,7 +6,7 @@ package com.quickvideo.quickvideo.client;
  */
 
 public class API {
-    public static final String BASE_URL = "api.svipmovie.com/";
+    public static final String BASE_URL = "http://api.svipmovie.com/";
 //    public static final String SHOUYE = "front/homePageApi/homePage.do";
 //    public static final String PINDAO = "columns/getVideoList.do";
 //    public static final String XIANGQING = "front/videoDetailApi/videoDetail.do";
