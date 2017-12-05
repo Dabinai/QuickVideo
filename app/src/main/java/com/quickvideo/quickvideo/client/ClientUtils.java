@@ -11,10 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ClientUtils {
     private Retrofit retrofit;
-    public static final String BASE_URl = "";
 
     private static class SingleInstance {
-        private static final ClientUtils insTance = new ClientUtils(BASE_URl);
+        private static final ClientUtils insTance = new ClientUtils(API.BASE_URL);
     }
 
     //使用默认的单例RetrofitManager，是默认的baseurl
