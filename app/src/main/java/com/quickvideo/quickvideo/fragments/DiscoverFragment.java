@@ -11,13 +11,16 @@ import com.quickvideo.quickvideo.R;
 
 /**
  * Created by Dabin on 2017/12/4.
+ * 发现：DiscoverFragment
+ * 仿探探卡片滑动+换一批（分页换数据），
+ * 点击事件（点击跳到VideoInfoActivity）
  */
 
 public class DiscoverFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = View.inflate(getActivity(), R.layout.frag_discover,null);
+        View view = View.inflate(getActivity(), R.layout.frag_discover, null);
         return view;
     }
 }

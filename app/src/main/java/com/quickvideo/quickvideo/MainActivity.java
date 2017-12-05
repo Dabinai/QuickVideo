@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 
 import com.quickvideo.quickvideo.fragments.ClassificationFragment;
 import com.quickvideo.quickvideo.fragments.DiscoverFragment;
@@ -18,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+//2017.1205
 
 public class MainActivity extends FragmentActivity {
 
