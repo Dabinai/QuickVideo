@@ -1,70 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/bg_colorful"
     tools:context="com.quickvideo.quickvideo.MainActivity">
-<android.support.v4.view.ViewPager
-    android:id="@+id/myviewpager"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="55dp"/>
-    <com.yinglan.alphatabs.AlphaTabsIndicator
-        android:layout_alignParentBottom="true"
-        android:id="@+id/alphaIndicator"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal">
-        <com.yinglan.alphatabs.AlphaTabView
-            android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <com.quickvideo.quickvideo.utils.NonSwipeableViewPager
+            android:id="@+id/myviewpager"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="5dp"
-            app:tabIconNormal="@mipmap/found"
-            app:tabIconSelected="@mipmap/found_select"
-            app:tabText="精选"
-            app:tabTextSize="12sp"
-            app:textColorNormal="#84868C"
-            app:textColorSelected="#f00"
-            />
+            android:layout_marginBottom="55dp"/>
+        <com.yinglan.alphatabs.AlphaTabsIndicator
+            android:background="@mipmap/bottom_bg"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/alphaIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal">
+            <com.yinglan.alphatabs.AlphaTabView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="5dp"
+                app:tabIconNormal="@mipmap/found"
+                app:tabIconSelected="@mipmap/found_select"
+                app:tabText="精选"
+                app:tabTextSize="12sp"
+                app:textColorNormal="#84868C"
+                app:textColorSelected="#f00"
+                />
 
-        <com.yinglan.alphatabs.AlphaTabView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="5dp"
-            app:tabIconNormal="@mipmap/special"
-            app:tabIconSelected="@mipmap/special_select"
-            app:tabText="专题"
-            app:tabTextSize="12sp"
-            app:textColorNormal="#84868C"
-            app:textColorSelected="#f00"
-            />
-        <com.yinglan.alphatabs.AlphaTabView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="5dp"
-            app:tabIconNormal="@mipmap/fancy"
-            app:tabIconSelected="@mipmap/fancy_select"
-            app:tabText="发现"
-            app:tabTextSize="12sp"
-            app:textColorNormal="#84868C"
-            app:textColorSelected="#f00"
-            />
-        <com.yinglan.alphatabs.AlphaTabView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="5dp"
-            app:tabIconNormal="@mipmap/my"
-            app:tabIconSelected="@mipmap/my_select"
-            app:tabText="我的"
-            app:textColorNormal="#84868C"
-            app:textColorSelected="#f00"
-            app:tabTextSize="12sp"
-            />
-    </com.yinglan.alphatabs.AlphaTabsIndicator>
+            <com.yinglan.alphatabs.AlphaTabView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="5dp"
+                app:tabIconNormal="@mipmap/special"
+                app:tabIconSelected="@mipmap/special_select"
+                app:tabText="专题"
+                app:tabTextSize="12sp"
+                app:textColorNormal="#84868C"
+                app:textColorSelected="#f00"
+                />
+            <com.yinglan.alphatabs.AlphaTabView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="5dp"
+                app:tabIconNormal="@mipmap/fancy"
+                app:tabIconSelected="@mipmap/fancy_select"
+                app:tabText="发现"
+                app:tabTextSize="12sp"
+                app:textColorNormal="#84868C"
+                app:textColorSelected="#f00"
+                />
+            <com.yinglan.alphatabs.AlphaTabView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="5dp"
+                app:tabIconNormal="@mipmap/my"
+                app:tabIconSelected="@mipmap/my_select"
+                app:tabText="我的"
+                app:textColorNormal="#84868C"
+                app:textColorSelected="#f00"
+                app:tabTextSize="12sp"
+                />
+        </com.yinglan.alphatabs.AlphaTabsIndicator>
+    </RelativeLayout>
 
-</RelativeLayout>
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/nav_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</android.support.v4.widget.DrawerLayout>
