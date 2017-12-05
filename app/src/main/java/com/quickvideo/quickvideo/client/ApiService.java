@@ -1,6 +1,7 @@
 package com.quickvideo.quickvideo.client;
 
 import com.quickvideo.quickvideo.bean.PinDaoBean;
+import com.quickvideo.quickvideo.bean.PingLunBean;
 import com.quickvideo.quickvideo.bean.ShouYeBean;
 import com.quickvideo.quickvideo.bean.SouSuoBean;
 import com.quickvideo.quickvideo.bean.XiangQingBean;
@@ -48,6 +49,6 @@ public interface ApiService {
     //    评论列表：http://api.svipmovie.com/front/Commentary/getCommentList.do?mediaId=CMCC_00000000000000001_621653189
     @FormUrlEncoded
     @POST("front/Commentary/getCommentList.do")
-    Observable<SouSuoBean> getPLunData(@FieldMap HashMap<String, String> map);
+    Observable<PingLunBean> getPLunData(@FieldMap HashMap<String, String> map);
 }
 
