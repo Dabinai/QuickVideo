@@ -29,38 +29,41 @@ public class MyClassificationAdapter extends XRecyclerView.Adapter<MyClassificat
     }
 
     @Override
-    public MyClassificationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyClassificationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
 //        ViewHolder holder = new ViewHolder(LayoutInflater.from(
 //                context).inflate(R.layout.classificationadapteritem, parent, false));
 //                 return holder;
         View v = LayoutInflater.from(context).inflate(R.layout.classificationadapteritem, parent, false);
         final ViewHolder holder=new ViewHolder(v);
+
+        return new MyClassificationAdapter.ViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(MyClassificationAdapter.ViewHolder holder, final int position) {
+            holder.tv.setText(list.get(position).title);
+            String url = list.get(position).childList.get(0).pic;
+             Uri uri = Uri.parse(url);
+             holder.img.setImageURI(uri);
         if(listner!=null){
-            v.setOnClickListener(new View.OnClickListener() {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //holder.getLayoutPosition()获取点击的条目位置；
-                    listner.onItemClick(view,holder.getLayoutPosition());
+                    listner.onItemClick(view,position);
                 }
             });
-            v.setOnLongClickListener(new View.OnLongClickListener() {
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    listner.onLongItemClick(view,holder.getLayoutPosition());
+                    listner.onLongItemClick(view,position);
                     //防止与click事件冲突
                     return true;
                 }
             });
         }
-        return new MyClassificationAdapter.ViewHolder(v);
-    }
 
-    @Override
-    public void onBindViewHolder(MyClassificationAdapter.ViewHolder holder, int position) {
-            holder.tv.setText(list.get(position).title);
-            String url = list.get(position).childList.get(0).pic;
-             Uri uri = Uri.parse(url);
-             holder.img.setImageURI(uri);
+
     }
 
     @Override

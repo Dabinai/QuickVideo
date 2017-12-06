@@ -24,8 +24,8 @@ public class VideoListPresenter {
         this.model = new IVideoListModel();
     }
 
-    public void getVideoData(){
-        Observable<PinDaoBean> observable = model.getData();
+    public void getVideoData(String pnum){
+        Observable<PinDaoBean> observable = model.getData(pnum);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<PinDaoBean>() {

@@ -9,5 +9,5 @@ import io.reactivex.Observable;
  */
 
 public interface VideoListModel {
-            Observable<PinDaoBean> getData();
+            Observable<PinDaoBean> getData(String pnum);
 }

@@ -6,21 +6,25 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.quickvideo.quickvideo.Classification.adapter.MyClassificationAdapter;
 import com.quickvideo.quickvideo.Classification.presenter.IClassificationPresenter;
 import com.quickvideo.quickvideo.Classification.view.IClassificationView;
-import com.quickvideo.quickvideo.VideoList.View.VideoListActivity;
 import com.quickvideo.quickvideo.R;
+import com.quickvideo.quickvideo.VideoList.View.VideoListActivity;
 import com.quickvideo.quickvideo.bean.ShouYeBean;
 import com.quickvideo.quickvideo.client.OnClickRecyclerListner;
 
+import java.util.HashMap;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -31,12 +35,15 @@ import butterknife.Unbinder;
  * XRecyclerview,点击事件（跳转到VideoListActivity）
  */
 
-public class ClassificationFragment extends Fragment implements IClassificationView{
+public class ClassificationFragment extends Fragment implements IClassificationView {
     @BindView(R.id.recyclerview)
     XRecyclerView recyclerview;
     Unbinder unbinder;
+    @BindView(R.id.classifiation_tv)
+    TextView classifiationTv;
     private Handler handler = new Handler();
     private MyClassificationAdapter myClassificationAdapter;
+    private String trim;
 
     @Nullable
     @Override
@@ -48,8 +55,11 @@ public class ClassificationFragment extends Fragment implements IClassificationV
         IClassificationPresenter presenter = new IClassificationPresenter(this);
         presenter.getMovieData();
 
-        GridLayoutManager manager = new GridLayoutManager(getActivity(),2);
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
         recyclerview.setLayoutManager(manager);
+        //trim = classifiationTv.getText().toString().trim();
+
+
 
         recyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
@@ -64,8 +74,6 @@ public class ClassificationFragment extends Fragment implements IClassificationV
         });
 
 
-
-
         return view;
     }
 
@@ -74,7 +82,6 @@ public class ClassificationFragment extends Fragment implements IClassificationV
         super.onDestroyView();
         unbinder.unbind();
     }
-
 
 
     @Override
@@ -93,14 +100,19 @@ public class ClassificationFragment extends Fragment implements IClassificationV
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    myClassificationAdapter = new MyClassificationAdapter(getActivity(),list);
+                    myClassificationAdapter = new MyClassificationAdapter(getActivity(), list);
                     recyclerview.setAdapter(myClassificationAdapter);
                     //点击事件
                     myClassificationAdapter.setLisner(new OnClickRecyclerListner() {
                         @Override
                         public void onItemClick(View view, int position) {
-                                    Intent intent = new Intent(getActivity(), VideoListActivity.class);
-                                    startActivity(intent);
+                            Intent intent = new Intent(getActivity(), VideoListActivity.class);
+                            Log.d("AAAAAAAAAAAAAA",position+"");
+                            intent.putExtra("title",list.get(position).title);
+                                startActivity(intent);
+
+
+
                         }
 
                         @Override
@@ -112,6 +124,7 @@ public class ClassificationFragment extends Fragment implements IClassificationV
             });
 
         }
+
 
     }
 }
