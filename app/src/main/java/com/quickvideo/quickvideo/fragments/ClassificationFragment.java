@@ -15,6 +15,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.quickvideo.quickvideo.Classification.adapter.MyClassificationAdapter;
 import com.quickvideo.quickvideo.Classification.presenter.IClassificationPresenter;
 import com.quickvideo.quickvideo.Classification.view.IClassificationView;
+import com.quickvideo.quickvideo.VideoList.View.VideoListActivity;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.bean.ShouYeBean;
 import com.quickvideo.quickvideo.client.OnClickRecyclerListner;
@@ -98,7 +99,8 @@ public class ClassificationFragment extends Fragment implements IClassificationV
                     myClassificationAdapter.setLisner(new OnClickRecyclerListner() {
                         @Override
                         public void onItemClick(View view, int position) {
-                            Toast.makeText(getActivity(), "能跳", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getActivity(), VideoListActivity.class);
+                                    startActivity(intent);
                         }
 
                         @Override
