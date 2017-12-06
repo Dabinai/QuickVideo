@@ -1,6 +1,7 @@
 package com.quickvideo.quickvideo.VideoList.adapter;
 
 import android.content.Context;
+import android.icu.text.LocaleDisplayNames;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public class MyVideoListAdapter extends XRecyclerView.Adapter<MyVideoListAdapter
 
                 Glide.with(context).load(vlist.get(position).pic).into(holder.videolistitem_img);
                 holder.videolistitem_tv.setText(vlist.get(position).title);
+
     }
 
     @Override
