@@ -56,4 +56,8 @@ dependencies {
     //底部栏
     compile 'com.yinglan.alphatabs:library:1.0.5'
     implementation project(':swilibrary')
+
+    //cardView
+    compile 'com.android.support:cardview-v7:26.1.0'
+
 }
