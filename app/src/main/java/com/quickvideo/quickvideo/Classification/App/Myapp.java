@@ -9,9 +9,13 @@ import com.facebook.drawee.backends.pipeline.Fresco;
  */
 
 public class Myapp extends Application{
+    public static Myapp mcontext;
     @Override
     public void onCreate() {
         super.onCreate();
         Fresco.initialize(this);
+        if(mcontext == null){
+            mcontext =this;
+        }
     }
 }
