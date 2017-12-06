@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-
 import com.quickvideo.quickvideo.fragments.ClassificationFragment;
 import com.quickvideo.quickvideo.fragments.DiscoverFragment;
 import com.quickvideo.quickvideo.mine.view.MineFragment;
 import com.quickvideo.quickvideo.fragments.RecommendFragment;
 import com.quickvideo.quickvideo.utils.NonSwipeableViewPager;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
-
 import java.util.ArrayList;
 import java.util.List;
 
