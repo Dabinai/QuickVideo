@@ -24,8 +24,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class VideoListActivity extends AppCompatActivity implements VideoListView {
+public class VideoListActivity extends SwipeBackActivity  implements VideoListView {
 
     @BindView(R.id.video_img)
     ImageView videoImg;
