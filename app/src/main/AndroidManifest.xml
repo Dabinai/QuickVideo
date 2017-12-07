@@ -24,7 +24,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VideoList.View.VideoListActivity"></activity>
+
+        <activity android:name=".VideoList.View.VideoListActivity"
+            android:theme="@style/otherPageStyle"
+            >
+        </activity>
         <activity android:name=".mine.view.ThemeActivity"
             android:label="@string/theme_setting"
             android:screenOrientation="portrait"

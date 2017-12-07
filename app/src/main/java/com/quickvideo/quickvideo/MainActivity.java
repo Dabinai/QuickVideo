@@ -21,13 +21,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 //2017.1205
 
+
+
+
+
 public class MainActivity extends BaseActivity{
     private Long firstTime = 0L;
+
     @BindView(R.id.alphaIndicator)
     AlphaTabsIndicator alphaIndicator;
     @BindView(R.id.myviewpager)
     NonSwipeableViewPager myviewpager;
-private List<Fragment> fragList = new ArrayList<>();
+    private List<Fragment> fragList = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,7 @@ private List<Fragment> fragList = new ArrayList<>();
         initFrag();
         myviewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
+
             public Fragment getItem(int position) {
                 return fragList.get(position);
             }

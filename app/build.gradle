@@ -66,4 +66,7 @@ dependencies {
     //SwipeBackActivity左滑关闭
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
 
+    //左滑关闭
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+
 }
