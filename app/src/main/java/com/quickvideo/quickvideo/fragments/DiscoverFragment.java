@@ -60,6 +60,7 @@ public class DiscoverFragment extends Fragment {
         return view;
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -164,4 +165,5 @@ public class DiscoverFragment extends Fragment {
         page++;
         initData();
     }
+
 }

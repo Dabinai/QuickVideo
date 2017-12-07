@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">QuickVideo</string>
+    <string name="theme_setting">Theme Setting</string>
 </resources>

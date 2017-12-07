@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="RoundImageView">
         <attr name="radius" format="reference|dimension" />
+
+    <attr name="mainColor" format="color" />
+    <attr name="mainPrimaryTextColor" format="color" />
+    <attr name="mainPrimaryLightTextColor" format="color" />
+    <attr name="mainBgColor" format="color" />
+
+
+    <declare-styleable name="Theme_Btn">
+        <attr name="bg_color" format="color" />
     </declare-styleable>
 </resources>
