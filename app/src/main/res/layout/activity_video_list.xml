@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg_colorful"
+    android:background="?attr/mainBgColor"
     tools:context="com.quickvideo.quickvideo.VideoList.View.VideoListActivity">
     <LinearLayout
         android:layout_width="match_parent"
