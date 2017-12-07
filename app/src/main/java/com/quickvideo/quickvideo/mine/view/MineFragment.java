@@ -1,4 +1,4 @@
-package com.quickvideo.quickvideo.fragments;
+package com.quickvideo.quickvideo.mine.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
