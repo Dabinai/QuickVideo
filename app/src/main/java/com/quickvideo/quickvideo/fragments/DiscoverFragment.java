@@ -23,4 +23,5 @@ public class DiscoverFragment extends Fragment {
         View view = View.inflate(getActivity(), R.layout.frag_discover, null);
         return view;
     }
+
 }
