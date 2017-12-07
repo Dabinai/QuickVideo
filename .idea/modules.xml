@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/QuickVideo.iml" filepath="$PROJECT_DIR$/QuickVideo.iml" />
+      <module fileurl="file://E:\ShiXun1\Projeacts\QuickVideo\QuickVideo.iml" filepath="E:\ShiXun1\Projeacts\QuickVideo\QuickVideo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\ShiXun1\Projeacts\QuickVideo\app\app.iml" filepath="E:\ShiXun1\Projeacts\QuickVideo\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/swilibrary/swilibrary.iml" filepath="$PROJECT_DIR$/swilibrary/swilibrary.iml" />
+      <module fileurl="file://E:\ShiXun1\Projeacts\QuickVideo\swilibrary\swilibrary.iml" filepath="E:\ShiXun1\Projeacts\QuickVideo\swilibrary\swilibrary.iml" />
     </modules>
   </component>
 </project>
