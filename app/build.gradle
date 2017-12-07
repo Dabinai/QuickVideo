@@ -61,4 +61,7 @@ dependencies {
     //cardView
     compile 'com.android.support:cardview-v7:26.1.0'
 
+    //左滑关闭
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+
 }
