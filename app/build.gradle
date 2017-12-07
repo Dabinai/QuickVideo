@@ -57,9 +57,14 @@ dependencies {
     //底部栏
     compile 'com.yinglan.alphatabs:library:1.0.5'
     implementation project(':swilibrary')
-
     //cardView
     compile 'com.android.support:cardview-v7:26.1.0'
+    //logger
+    compile 'com.orhanobut:logger:2.1.1'
+    //RecyclerView
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    //SwipeBackActivity左滑关闭
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
 
     //左滑关闭
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
