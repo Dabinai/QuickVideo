@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.widget.Toast;
 
+import com.quickvideo.quickvideo.Classification.App.Myapp;
 import com.quickvideo.quickvideo.allbasic.BaseActivity;
 import com.quickvideo.quickvideo.fragments.ClassificationFragment;
 import com.quickvideo.quickvideo.fragments.DiscoverFragment;
@@ -20,7 +22,7 @@ import butterknife.ButterKnife;
 //2017.1205
 
 public class MainActivity extends BaseActivity{
-
+    private Long firstTime = 0L;
     @BindView(R.id.alphaIndicator)
     AlphaTabsIndicator alphaIndicator;
     @BindView(R.id.myviewpager)
@@ -58,5 +60,17 @@ private List<Fragment> fragList = new ArrayList<>();
         fragList.add(new ClassificationFragment());
         fragList.add(new DiscoverFragment());
         fragList.add(new MineFragment());
+    }
+
+    //返回键
+    @Override
+    public void onBackPressed() {
+        long secondTime = System.currentTimeMillis();
+        if (secondTime - firstTime > 1500) {
+            Toast.makeText(mContext, "再按一次退出", Toast.LENGTH_SHORT).show();
+            firstTime = secondTime;
+        } else {
+            Myapp.exitApp();
+        }
     }
 }
