@@ -8,6 +8,7 @@ import com.quickvideo.quickvideo.allbasic.BaseActivity;
 
 /**
  * Created by powersen on 2017/12/7.
+ * 历史/收藏 界面
  */
 
 public class LSSCActivity extends BaseActivity {
