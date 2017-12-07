@@ -14,7 +14,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.quickvideo.quickvideo.Classification.App.Myapp;
 import com.quickvideo.quickvideo.R;
-import com.quickvideo.quickvideo.mine.Consts;
+import com.quickvideo.quickvideo.mine.bean.Consts;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

@@ -1,4 +1,4 @@
-package com.quickvideo.quickvideo.mine.view;
+package com.quickvideo.quickvideo.mine.view.frag;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,9 +12,18 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.quickvideo.quickvideo.MainActivity;
 import com.quickvideo.quickvideo.R;
+import com.quickvideo.quickvideo.mine.adapter.MineGridAdapter;
+import com.quickvideo.quickvideo.mine.bean.MineBean;
+import com.quickvideo.quickvideo.mine.presenter.MinePresenter;
+import com.quickvideo.quickvideo.mine.view.MineView;
+import com.quickvideo.quickvideo.mine.view.activites.SettingsActivity;
+import com.quickvideo.quickvideo.mine.view.activites.ThemeActivity;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +31,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * Created by Dabin on 2017/12/4.
+ * Created by powersen on 2017/12/4.
  * 我的,MineFragment
  * 1.历史HistoryActivity，标题底部，显示列表
  * 2.缓存（待开发）
@@ -30,7 +39,7 @@ import butterknife.Unbinder;
  * 4.主题（换肤，点击弹出DiaLog）
  */
 
-public class MineFragment extends Fragment {
+public class MineFragment extends Fragment implements MineView {
     //背景图片
     @BindView(R.id.img_my_bg)
     ImageView imgMyBg;
@@ -76,10 +85,11 @@ public class MineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.frag_mine, null);
         unbinder = ButterKnife.bind(this, view);
-//        设置GridView只显示一行数据
-        lishiGirdview.setNumColumns(1);
+        MinePresenter presenter = new MinePresenter(this);
+        presenter.getGridDatas();
         return view;
     }
+
 
     @Override
     public void onDestroyView() {
@@ -91,6 +101,7 @@ public class MineFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_settings:
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
                 break;
             case R.id.rel1_lishi:
                 break;
@@ -100,7 +111,7 @@ public class MineFragment extends Fragment {
                 break;
             case R.id.rel4_theme:
                 Intent i = new Intent(getActivity(), ThemeActivity.class);
-                startActivityForResult(i,0);
+                startActivityForResult(i, 0);
                 break;
         }
     }
@@ -116,5 +127,24 @@ public class MineFragment extends Fragment {
                 startActivity(i);
             }
         }
+    }
+
+    @Override
+    public void showOk() {
+        showToast("成功");
+    }
+
+    @Override
+    public void showError() {
+        showToast("失败");
+    }
+
+    @Override
+    public void showAdapter(List<MineBean> list) {
+        lishiGirdview.setAdapter(new MineGridAdapter(getActivity(), list));
+    }
+
+    public void showToast(String string) {
+        Toast.makeText(getActivity(), string, Toast.LENGTH_LONG).show();
     }
 }

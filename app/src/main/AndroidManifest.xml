@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -24,11 +25,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VideoList.View.VideoListActivity"></activity>
-        <activity android:name=".mine.view.ThemeActivity"
+        <activity android:name=".VideoList.View.VideoListActivity">
+
+        </activity>
+        <activity
+            android:name=".mine.view.activites.ThemeActivity"
             android:label="@string/theme_setting"
             android:screenOrientation="portrait"
-            android:theme="@style/AppDialog"></activity>
+            android:theme="@style/AppDialog">
+
+        </activity>
+        <activity android:name=".mine.view.activites.SettingsActivity">
+
+        </activity>
     </application>
 
 </manifest>

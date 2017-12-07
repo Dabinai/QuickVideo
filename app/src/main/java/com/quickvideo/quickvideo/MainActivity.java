@@ -2,7 +2,6 @@ package com.quickvideo.quickvideo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.widget.Toast;
 
@@ -10,7 +9,7 @@ import com.quickvideo.quickvideo.Classification.App.Myapp;
 import com.quickvideo.quickvideo.allbasic.BaseActivity;
 import com.quickvideo.quickvideo.fragments.ClassificationFragment;
 import com.quickvideo.quickvideo.fragments.DiscoverFragment;
-import com.quickvideo.quickvideo.mine.view.MineFragment;
+import com.quickvideo.quickvideo.mine.view.frag.MineFragment;
 import com.quickvideo.quickvideo.fragments.RecommendFragment;
 import com.quickvideo.quickvideo.utils.NonSwipeableViewPager;
 import com.yinglan.alphatabs.AlphaTabsIndicator;

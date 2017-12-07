@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorRed">#f00</color>
-
+    <color name="white_translucent_20">#20FFFFFF</color>
 
     <!--主题切换使用color for powersen-->
     <color name="white">#FFFFFF</color>

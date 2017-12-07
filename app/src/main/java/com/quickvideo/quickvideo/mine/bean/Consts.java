@@ -1,4 +1,4 @@
-package com.quickvideo.quickvideo.mine;
+package com.quickvideo.quickvideo.mine.bean;
 
 /**
  * Created by powersen on 2017/12/6.
