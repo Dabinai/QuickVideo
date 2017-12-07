@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.quickvideo.quickvideo.allbasic.BaseActivity;
 import com.quickvideo.quickvideo.fragments.ClassificationFragment;
 import com.quickvideo.quickvideo.fragments.DiscoverFragment;
 import com.quickvideo.quickvideo.mine.view.MineFragment;
@@ -17,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 //2017.1205
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity{
 
     @BindView(R.id.alphaIndicator)
     AlphaTabsIndicator alphaIndicator;
@@ -25,9 +27,8 @@ public class MainActivity extends FragmentActivity {
     NonSwipeableViewPager myviewpager;
 private List<Fragment> fragList = new ArrayList<>();
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
         initFrag();
@@ -44,6 +45,12 @@ private List<Fragment> fragList = new ArrayList<>();
         });
         //设置ViewPager
         alphaIndicator.setViewPager(myviewpager);
+    }
+
+    @Override
+    public int getLayout() {
+
+        return  R.layout.activity_main;
     }
 
     private void initFrag() {
