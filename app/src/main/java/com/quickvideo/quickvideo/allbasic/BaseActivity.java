@@ -149,7 +149,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void getIntentData() {
     }
 
-    ;
+
 
     //初始化View
     public void initView() {
@@ -158,5 +158,5 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void initEvent() {
     }
 
-    ;
+
 }

@@ -45,7 +45,7 @@ public class MineFragment extends Fragment {
 
     //用来显示历史数据的GridView
     @BindView(R.id.linear_lishi_girdview)
-    GridView linearLishiGirdview;
+    GridView lishiGirdview;
 
     //包裹显示历史数据的GridView的父布局
     @BindView(R.id.linear_lishi)
@@ -76,7 +76,8 @@ public class MineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.frag_mine, null);
         unbinder = ButterKnife.bind(this, view);
-
+//        设置GridView只显示一行数据
+        lishiGirdview.setNumColumns(1);
         return view;
     }
 
