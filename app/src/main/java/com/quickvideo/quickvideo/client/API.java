@@ -12,4 +12,6 @@ public class API {
 //    public static final String XIANGQING = "front/videoDetailApi/videoDetail.do";
 //    public static final String SOUSUO = "front/searchKeyWordApi/getVideoListByKeyWord.do";
 //    public static final String PINGLUN = "front/Commentary/getCommentList.do?mediaId=CMCC_00000000000000001_621653189";
+    //福利
+    public static final String FULI_URL = "http://gank.io/api/";
 }
