@@ -1,6 +1,7 @@
 package com.quickvideo.quickvideo.mine.view.frag;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.quickvideo.quickvideo.mine.adapter.MineGridAdapter;
 import com.quickvideo.quickvideo.mine.bean.MineBean;
 import com.quickvideo.quickvideo.mine.presenter.MinePresenter;
 import com.quickvideo.quickvideo.mine.view.MineView;
+import com.quickvideo.quickvideo.mine.view.activites.LSSCActivity;
 import com.quickvideo.quickvideo.mine.view.activites.SettingsActivity;
 import com.quickvideo.quickvideo.mine.view.activites.ThemeActivity;
 
@@ -101,16 +103,22 @@ public class MineFragment extends Fragment implements MineView {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_settings:
-                Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                startActivity(intent);
+//                跳转到设置界面
+                startActivity(new Intent(getActivity(),SettingsActivity.class));
                 break;
             case R.id.rel1_lishi:
+//                跳转到历史/收藏界面
+                startActivity(new Intent(getActivity(), LSSCActivity.class));
                 break;
             case R.id.rel2_huancun:
+                showToast("缓存已清理！");
                 break;
             case R.id.rel3_shoucang:
+//                跳转到历史/收藏界面
+                startActivity(new Intent(getActivity(), LSSCActivity.class));
                 break;
             case R.id.rel4_theme:
+//                更改主题界面
                 Intent i = new Intent(getActivity(), ThemeActivity.class);
                 startActivityForResult(i, 0);
                 break;
@@ -144,6 +152,7 @@ public class MineFragment extends Fragment implements MineView {
     public void showAdapter(List<MineBean> list) {
         lishiGirdview.setAdapter(new MineGridAdapter(getActivity(), list));
     }
+
 
     public void showToast(String string) {
         Toast.makeText(getActivity(), string, Toast.LENGTH_LONG).show();

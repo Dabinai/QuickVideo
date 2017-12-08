@@ -2,8 +2,11 @@ package com.quickvideo.quickvideo.mine.view.activites;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quickvideo.quickvideo.R;
@@ -46,13 +49,52 @@ public class SettingsActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting_tuijian:
-                Toast.makeText(SettingsActivity.this,"onclick!!!",Toast.LENGTH_LONG).show();
+//               点击弹出推荐对话框
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+                View view1 = LayoutInflater.from(SettingsActivity.this).inflate(R.layout.dialog_tuijian, null);
+                builder.setView(view1);
+                final AlertDialog dialog = builder.create();
+                view1.findViewById(R.id.dialog_copy).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(SettingsActivity.this, "已复制到粘贴板", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+                view1.findViewById(R.id.tuijian_dialog_close).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
                 break;
             case R.id.setting_clear:
+                Toast.makeText(SettingsActivity.this, "缓存已清理", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.setting_about_us:
+//                点击弹出关于我们对话框
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(SettingsActivity.this);
+                View view2 = LayoutInflater.from(SettingsActivity.this).inflate(R.layout.dialog_about_us_layout, null);
+                builder1.setView(view2);
+                final AlertDialog guanyudialog = builder1.create();
+                TextView close = view2.findViewById(R.id.close);
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        guanyudialog.dismiss();
+                    }
+                });
+                guanyudialog.show();
+
                 break;
             case R.id.setting_fankui:
+//                点击弹出反馈对话框
+                AlertDialog.Builder builder3 = new AlertDialog.Builder(SettingsActivity.this);
+                View view3 = LayoutInflater.from(SettingsActivity.this).inflate(R.layout.dialog_layout, null);
+                builder3.setView(view3);
+                final AlertDialog fankui = builder3.create();
+                fankui.show();
                 break;
         }
     }
