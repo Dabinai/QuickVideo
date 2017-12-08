@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:background="@android:color/holo_blue_light"
+        android:layout_height="50dp">
+        <TextView
+            android:textSize="25dp"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"
+            android:text="反馈"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <LinearLayout
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:layout_below="@id/title"
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+        <EditText
+            android:id="@+id/user_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入您的邮箱（必填）"
+            />
+
+        <EditText
+            android:id="@+id/fankuitext"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@null"
+            android:hint="请输入您的反馈" />
+        <Button
+            android:id="@+id/luyin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="按住录音"
+            />
+
+        <LinearLayout
+            android:layout_below="@id/luyin"
+            android:id="@+id/shangchuanlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/luyin"
+            android:layout_alignParentStart="true"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/jietu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上传截图"
+                android:textColor="@android:color/holo_green_dark" />
+        </LinearLayout>
+        <TextView
+            android:layout_below="@id/shangchuanlayout"
+            android:id="@+id/shebei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_green_dark"
+            android:text="设备详情：OPPO R11"
+            />
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/qx"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="取消"
+                />
+            <Button
+                android:id="@+id/qd"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="确定"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
