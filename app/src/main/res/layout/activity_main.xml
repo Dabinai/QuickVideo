@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/reside_layout"
-    android:background="@mipmap/bg_colorful"
+    android:background="?attr/mainBgColor"
     tools:context="com.quickvideo.quickvideo.MainActivity">
 
     <!--菜单列表，菜单背景-->
@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/bg_blue"
+            android:background="?attr/mainBgColor"
             android:scaleType="centerCrop"/>
 
         <RelativeLayout
@@ -115,7 +115,7 @@
                 android:id="@+id/myviewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="55dp"/>
+                android:layout_marginBottom="49dp"/>
             <com.yinglan.alphatabs.AlphaTabsIndicator
                 android:background="@mipmap/bottom_bg"
                 android:layout_alignParentBottom="true"
@@ -175,8 +175,5 @@
             </com.yinglan.alphatabs.AlphaTabsIndicator>
         </RelativeLayout>
     </RelativeLayout>
-
-
-
 
 </com.quickvideo.quickvideo.mainui.ResideLayout>

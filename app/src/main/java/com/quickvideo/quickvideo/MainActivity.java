@@ -16,6 +16,9 @@ import com.quickvideo.quickvideo.allbasic.BaseActivity;
 import com.quickvideo.quickvideo.bean.MenuBean;
 import com.quickvideo.quickvideo.fragments.ClassificationFragment;
 import com.quickvideo.quickvideo.fragments.DiscoverFragment;
+
+
+import com.quickvideo.quickvideo.mine.view.frag.MineFragment;
 import com.quickvideo.quickvideo.fragments.RecommendFragment;
 import com.quickvideo.quickvideo.leftmenu.utils.YijianDaiLog;
 import com.quickvideo.quickvideo.leftmenu.view.WelfareActivity;
@@ -33,7 +36,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 //2017.1205
 
-public class MainActivity extends BaseActivity {
+
+
+
+
+
+public class MainActivity extends BaseActivity{
+    private Long firstTime = 0L;
     @BindView(R.id.menu)
     ListView menu_list;
     @BindView(R.id.reside_layout)
@@ -42,12 +51,12 @@ public class MainActivity extends BaseActivity {
     TextView about;
     @BindView(R.id.theme)
     TextView theme;
-    private Long firstTime = 0L;
     @BindView(R.id.alphaIndicator)
     AlphaTabsIndicator alphaIndicator;
     @BindView(R.id.myviewpager)
     NonSwipeableViewPager myviewpager;
     private List<Fragment> fragList = new ArrayList<>();
+
     private ArrayList<MenuBean> menuBeans;
     private MenusAdapter menusAdapter;
 
@@ -59,6 +68,7 @@ public class MainActivity extends BaseActivity {
         initFrag();
         myviewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
+
             public Fragment getItem(int position) {
                 return fragList.get(position);
             }

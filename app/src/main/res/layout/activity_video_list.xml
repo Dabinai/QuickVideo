@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@mipmap/bg_colorful"
-    tools:context="com.quickvideo.quickvideo.VideoList.View.VideoListActivity">
+    android:orientation="vertical"
+    tools:context=".VideoList.View.VideoListActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorRed"
-        >
+        android:background="@color/colorRed">
+
         <ImageView
             android:id="@+id/video_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/back"
-            android:layout_marginLeft="20dp"
             android:layout_gravity="center"
-            />
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/back" />
+
         <TextView
             android:id="@+id/videoListhatv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
             android:layout_gravity="center"
             android:gravity="center"
-            android:textSize="20sp"
+            android:text=""
             android:textColor="#fff"
-            />
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -36,5 +37,5 @@
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/xrecyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+        android:layout_height="wrap_content"/>
 </LinearLayout>

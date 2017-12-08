@@ -4,9 +4,21 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorRed">#f00</color>
-
-
     <color name="menu_titledcolor">#FFFFFF</color>
     <color name="menu_DividerColor">#11000000</color>
     <color name="menu_DialogColor">#e75b0a</color>
+    <color name="white_translucent_20">#20FFFFFF</color>
+    <!--主题切换使用color for powersen-->
+    <color name="white">#FFFFFF</color>
+    <color name="primary">#3F51B5</color>
+    <color name="primary_dark">#303F9F</color>
+    <color name="primary_light">#C5CAE9</color>
+    <color name="accent">#009688</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
+    <color name="common_color">@color/primary</color>
+    <!--  <color name="battery">#33ff00</color> -->
+    <color name="defalut">#080099cc</color>
 </resources>
