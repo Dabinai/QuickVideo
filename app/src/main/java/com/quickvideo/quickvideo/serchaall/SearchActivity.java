@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.RecommendPackage.Video.PageVideo;
-import com.quickvideo.quickvideo.SearchBean;
 import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;

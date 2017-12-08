@@ -66,10 +66,13 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.1.0'
     //SwipeBackActivity左滑关闭
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
-
     //左滑关闭
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
     //okhttpUtils
     compile 'com.zhy:okhttputils:2.6.2'
-
+    implementation files('libs/Sunflower.jar')
+    //dialog
+    compile 'com.github.sd6352051:NiftyDialogEffects:v1.0.2'
+    //Toasty
+    compile 'com.github.GrenderG:Toasty:1.2.5'
 }

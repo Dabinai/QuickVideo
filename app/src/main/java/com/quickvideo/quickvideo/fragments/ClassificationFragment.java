@@ -86,11 +86,12 @@ public class ClassificationFragment extends Fragment implements IClassificationV
 
     @Override
     public void getDataSeccess() {
-        Toast.makeText(getActivity(), "成功1", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), "成功1", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void getDataFailed() {
+
         Toast.makeText(getActivity(), "失败1", Toast.LENGTH_LONG).show();
     }
 
@@ -107,12 +108,8 @@ public class ClassificationFragment extends Fragment implements IClassificationV
                         @Override
                         public void onItemClick(View view, int position) {
                             Intent intent = new Intent(getActivity(), VideoListActivity.class);
-                            Log.d("AAAAAAAAAAAAAA",position+"");
                             intent.putExtra("title",list.get(position).title);
                                 startActivity(intent);
-
-
-
                         }
 
                         @Override

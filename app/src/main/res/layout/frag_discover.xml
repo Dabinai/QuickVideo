@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/mainBgColor"
     android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/classifiation_tv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="发现"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="#fff"
+        android:background="@color/colorRed"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/discover_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
     <Button
         android:id="@+id/discover_button"
         android:layout_width="wrap_content"
@@ -14,17 +27,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
+        android:layout_marginTop="-50dp"
         android:background="#559C00"
+        android:layout_gravity="center"
         android:padding="2dp"
         android:text="换一批"
         android:textColor="@android:color/white" />
 
-    android:layout_height="match_parent"
-    android:background="?attr/mainBgColor">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="发现" />
-
-</RelativeLayout>
+</LinearLayout>

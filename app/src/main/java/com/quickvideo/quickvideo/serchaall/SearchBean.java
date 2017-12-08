@@ -1,4 +1,4 @@
-package com.quickvideo.quickvideo;
+package com.quickvideo.quickvideo.serchaall;
 
 import java.util.List;
 

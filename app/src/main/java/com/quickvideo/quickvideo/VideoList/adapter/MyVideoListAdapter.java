@@ -31,53 +31,56 @@ public class MyVideoListAdapter extends XRecyclerView.Adapter<MyVideoListAdapter
     }
 
     @Override
-    public MyVideoListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyVideoListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
 
         View v = LayoutInflater.from(context).inflate(R.layout.videolistitem, parent, false);
-        final MyVideoListAdapter.ViewHolder holder=new MyVideoListAdapter.ViewHolder(v);
-        if(listner!=null){
-            v.setOnClickListener(new View.OnClickListener() {
+        final MyVideoListAdapter.ViewHolder holder = new MyVideoListAdapter.ViewHolder(v);
+
+        return new MyVideoListAdapter.ViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(MyVideoListAdapter.ViewHolder holder, final int position) {
+
+        Glide.with(context).load(vlist.get(position).pic).into(holder.videolistitem_img);
+        holder.videolistitem_tv.setText(vlist.get(position).title);
+        if (listner != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //holder.getLayoutPosition()获取点击的条目位置；
-                    listner.onItemClick(view,holder.getLayoutPosition());
+                    listner.onItemClick(view, position);
                 }
             });
-            v.setOnLongClickListener(new View.OnLongClickListener() {
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    listner.onLongItemClick(view,holder.getLayoutPosition());
+                    listner.onLongItemClick(view, position);
                     //防止与click事件冲突
                     return true;
                 }
             });
         }
-        return new MyVideoListAdapter.ViewHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(MyVideoListAdapter.ViewHolder holder, int position) {
-
-                Glide.with(context).load(vlist.get(position).pic).into(holder.videolistitem_img);
-                holder.videolistitem_tv.setText(vlist.get(position).title);
-
     }
 
     @Override
     public int getItemCount() {
         return vlist.size();
     }
+
     //点击事件；
     private OnClickRecyclerListner listner;
+
     //设置点击事件；
-    public void setLisner(OnClickRecyclerListner lisner){
-        this.listner=lisner;
+    public void setLisner(OnClickRecyclerListner lisner) {
+        this.listner = lisner;
     }
 
-    public class ViewHolder extends XRecyclerView.ViewHolder{
+    public class ViewHolder extends XRecyclerView.ViewHolder {
 
-                public ImageView videolistitem_img;
-                public TextView videolistitem_tv;
+        public ImageView videolistitem_img;
+        public TextView videolistitem_tv;
+
         public ViewHolder(View itemView) {
             super(itemView);
 

@@ -23,7 +23,9 @@ import com.quickvideo.quickvideo.leftmenu.utils.YijianDaiLog;
 import com.quickvideo.quickvideo.leftmenu.view.WelfareActivity;
 import com.quickvideo.quickvideo.mainui.MenusAdapter;
 import com.quickvideo.quickvideo.mainui.ResideLayout;
+
 import com.quickvideo.quickvideo.mine.view.frag.MineFragment;
+
 import com.quickvideo.quickvideo.utils.NonSwipeableViewPager;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 
