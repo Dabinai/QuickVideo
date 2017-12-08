@@ -1,4 +1,4 @@
-package com.quickvideo.quickvideo.mine.view;
+package com.quickvideo.quickvideo.mine.view.activites;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.quickvideo.quickvideo.R;
-import com.quickvideo.quickvideo.mine.Consts;
+import com.quickvideo.quickvideo.mine.bean.Consts;
 
 
 /**

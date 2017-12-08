@@ -13,6 +13,14 @@
     </style>
 
 
+    <style name="settingItemStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/white_translucent_20</item>
+        <item name="android:paddingLeft">@dimen/standard_x_margin</item>
+        <item name="android:paddingRight">@dimen/standard_x_margin</item>
+        <item name="android:layout_marginTop">@dimen/standard_x_margin</item>
+    </style>
+
 
     <!--主题切换专用styles  for powersen-->
     <style name="AppTheme.Default">
