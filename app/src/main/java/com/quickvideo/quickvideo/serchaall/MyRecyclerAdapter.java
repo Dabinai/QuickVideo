@@ -11,7 +11,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.quickvideo.quickvideo.R;
-import com.quickvideo.quickvideo.SearchBean;
 
 import java.util.List;
 

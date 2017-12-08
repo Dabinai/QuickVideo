@@ -132,7 +132,7 @@ public class MineFragment extends Fragment implements MineView {
 
     @Override
     public void showOk() {
-        showToast("成功");
+        //showToast("成功");
     }
 
     @Override

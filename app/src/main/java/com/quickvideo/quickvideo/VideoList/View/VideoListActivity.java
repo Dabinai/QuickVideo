@@ -13,10 +13,14 @@ import android.widget.Toast;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.quickvideo.quickvideo.R;
+import com.quickvideo.quickvideo.RecommendPackage.Video.PageVideo;
 import com.quickvideo.quickvideo.VideoList.Presenter.VideoListPresenter;
 import com.quickvideo.quickvideo.VideoList.adapter.MyVideoListAdapter;
+import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.bean.PinDaoBean;
 import com.quickvideo.quickvideo.client.OnClickRecyclerListner;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +89,9 @@ public class VideoListActivity extends SwipeBackActivity  implements VideoListVi
                     myVideoListAdapter.setLisner(new OnClickRecyclerListner() {
                         @Override
                         public void onItemClick(View view, int position) {
-                            Toast.makeText(VideoListActivity.this, "能跳", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(VideoListActivity.this, "能跳"+position, Toast.LENGTH_SHORT).show();
+                            EventBus.getDefault().postSticky(new FirsEvent(vlist.get(position).dataId));
+                            startActivity(new Intent(VideoListActivity.this, PageVideo.class));
                         }
 
                         @Override

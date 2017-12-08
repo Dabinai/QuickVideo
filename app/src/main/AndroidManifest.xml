@@ -33,6 +33,9 @@
             android:theme="@style/AppDialog"></activity>
         <activity android:name=".mine.view.activites.LSSCActivity"></activity>
         <activity android:name=".mine.view.activites.SettingsActivity"></activity>
+        <activity android:name=".RecommendPackage.Video.PageVideo"/>
+        <activity android:name=".serchaall.SearchActivity"/>
+        <activity android:name=".serchaall.Search"/>
     </application>
 
 </manifest>
