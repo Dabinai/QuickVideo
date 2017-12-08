@@ -3,7 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/dialog_bg"
     android:orientation="vertical">
 
     <TextView
@@ -33,7 +32,7 @@
             android:textColor="@android:color/holo_green_light" />
 
         <TextView
-            android:id="@+id/dialog_close"
+            android:id="@+id/tuijian_dialog_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
