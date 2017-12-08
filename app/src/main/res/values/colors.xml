@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorRed">#f00</color>
+
+
+    <color name="menu_titledcolor">#FFFFFF</color>
+    <color name="menu_DividerColor">#11000000</color>
+    <color name="menu_DialogColor">#e75b0a</color>
 </resources>
