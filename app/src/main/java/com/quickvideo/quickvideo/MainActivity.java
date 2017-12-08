@@ -1,6 +1,7 @@
 package com.quickvideo.quickvideo;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,20 +11,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.quickvideo.quickvideo.Classification.App.Myapp;
 import com.quickvideo.quickvideo.allbasic.BaseActivity;
 import com.quickvideo.quickvideo.bean.MenuBean;
 import com.quickvideo.quickvideo.fragments.ClassificationFragment;
 import com.quickvideo.quickvideo.fragments.DiscoverFragment;
-
-
-import com.quickvideo.quickvideo.mine.view.frag.MineFragment;
 import com.quickvideo.quickvideo.fragments.RecommendFragment;
 import com.quickvideo.quickvideo.leftmenu.utils.YijianDaiLog;
 import com.quickvideo.quickvideo.leftmenu.view.WelfareActivity;
 import com.quickvideo.quickvideo.mainui.MenusAdapter;
 import com.quickvideo.quickvideo.mainui.ResideLayout;
+
+import com.quickvideo.quickvideo.mine.view.frag.MineFragment;
 
 import com.quickvideo.quickvideo.utils.NonSwipeableViewPager;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
@@ -37,11 +38,9 @@ import butterknife.OnClick;
 //2017.1205
 
 
-
-
-
-
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity {
+    @BindView(R.id.user_icon)
+    SimpleDraweeView userIcon;
     private Long firstTime = 0L;
     @BindView(R.id.menu)
     ListView menu_list;
@@ -91,9 +90,11 @@ public class MainActivity extends BaseActivity{
 
         return R.layout.activity_main;
     }
-
+    //按钮列表
     private void initMenu() {
-
+        //加载本地图片
+        Uri uri = Uri.parse("res://com.quickvideo.quickvideo/" + R.mipmap.photo);
+        userIcon.setImageURI(uri);
 
         menuBeans = new ArrayList<>();
         menuBeans.add(new MenuBean("我的收藏", R.mipmap.shoucang));
@@ -143,20 +144,6 @@ public class MainActivity extends BaseActivity{
     }
 
 
-    //关于--主题，点击
-    @OnClick({R.id.about, R.id.theme})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.about:
-                Toast.makeText(MainActivity.this, "关于", Toast.LENGTH_SHORT).show();
-
-                break;
-            case R.id.theme:
-                Toast.makeText(MainActivity.this, "主题", Toast.LENGTH_SHORT).show();
-                break;
-        }
-    }
-
     private void initFrag() {
         fragList.add(new RecommendFragment());
         fragList.add(new ClassificationFragment());
@@ -177,6 +164,20 @@ public class MainActivity extends BaseActivity{
     }
 
 
+    //头像---关于--主题，点击
 
-
+    @OnClick({R.id.user_icon, R.id.about, R.id.theme})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.about:
+                Toast.makeText(MainActivity.this, "关于", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.theme:
+                Toast.makeText(MainActivity.this, "主题", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.user_icon:
+                Toast.makeText(MainActivity.this, "登陆头像", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
 }

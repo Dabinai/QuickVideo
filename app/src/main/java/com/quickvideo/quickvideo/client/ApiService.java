@@ -5,6 +5,7 @@ import com.quickvideo.quickvideo.bean.PingLunBean;
 import com.quickvideo.quickvideo.bean.ShouYeBean;
 import com.quickvideo.quickvideo.bean.SouSuoBean;
 import com.quickvideo.quickvideo.bean.XiangQingBean;
+import com.quickvideo.quickvideo.leftmenu.menubean.GankBean;
 
 import java.util.HashMap;
 
@@ -14,6 +15,7 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
 /**
@@ -50,5 +52,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("front/Commentary/getCommentList.do")
     Observable<PingLunBean> getPLunData(@FieldMap HashMap<String, String> map);
+
+    /** http://gank.io/api/data/福利/10/1
+     * 福利列表
+     */
+    @GET("data/福利/{num}/{page}")
+    Observable<GankBean> getGirlList(@Path("num") int num, @Path("page") int page);
+
 }
 

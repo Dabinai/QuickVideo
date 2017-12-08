@@ -30,11 +30,14 @@
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
-
-                <ImageView
+                <!--圆角图片-->
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/user_icon"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@mipmap/photo"
+                    app:actualImageScaleType="centerCrop"
+                    app:roundAsCircle="true"
                     />
                 <TextView
                     android:layout_marginLeft="10dp"

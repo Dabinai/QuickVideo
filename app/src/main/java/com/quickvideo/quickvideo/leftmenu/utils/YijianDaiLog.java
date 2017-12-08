@@ -67,16 +67,19 @@ public class YijianDaiLog {
                 startSpeechDialog();// 语音识别
             }
         });
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "确定", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         final AlertDialog dialog = new AlertDialog.Builder(context).setView(view2).create();
         Window window = dialog.getWindow();
         window.setGravity(Gravity.CENTER);  //此处可以设置dialog显示的位置
         dialog.show();
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "确定", Toast.LENGTH_SHORT).show();
+                //如果有接口，可以做文件发送
+                dialog.dismiss();
+            }
+        });
         qx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,6 +155,7 @@ public class YijianDaiLog {
 
     private void startSpeechDialog() {
         //1. 创建RecognizerDialog对象
+
         RecognizerDialog mDialog = new RecognizerDialog(context, new MyInitListener()) ;
         //2. 设置accent、 language等参数
         mDialog.setParameter(SpeechConstant. LANGUAGE, "zh_cn" );// 设置中文
