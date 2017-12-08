@@ -1,6 +1,7 @@
 package com.quickvideo.quickvideo.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.quickvideo.quickvideo.R;
+import com.quickvideo.quickvideo.RecommendPackage.Video.PageVideo;
+import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.bean.PinDaoBean;
 import com.quickvideo.quickvideo.client.ApiService;
 import com.quickvideo.quickvideo.client.ClientUtils;
@@ -22,6 +25,8 @@ import com.quickvideo.quickvideo.discoverall.cardswipelayout.CardConfig;
 import com.quickvideo.quickvideo.discoverall.cardswipelayout.CardItemTouchHelperCallback;
 import com.quickvideo.quickvideo.discoverall.cardswipelayout.CardLayoutManager;
 import com.quickvideo.quickvideo.discoverall.cardswipelayout.OnSwipeListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -142,6 +147,8 @@ public class DiscoverFragment extends Fragment {
                             @Override
                             public void onItemClick(View view, int position) {
                                 Toast.makeText(getActivity(), ""+list.get(position).title, Toast.LENGTH_SHORT).show();
+                                EventBus.getDefault().postSticky(new FirsEvent(list.get(position).dataId));
+                                getActivity().startActivity(new Intent(getActivity(), PageVideo.class));
                             }
                         });
                     }

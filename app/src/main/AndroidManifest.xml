@@ -15,8 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
-        <activity
-            android:name=".MainActivity"
+        <activity android:name=".MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -25,14 +24,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VideoList.View.VideoListActivity"></activity>
-        <activity
-            android:name=".mine.view.activites.ThemeActivity"
+
+        <activity android:name=".VideoList.View.VideoListActivity"
+            android:theme="@style/otherPageStyle"
+            >
+        </activity>
+        <activity android:name=".mine.view.activites.ThemeActivity"
             android:label="@string/theme_setting"
             android:screenOrientation="portrait"
             android:theme="@style/AppDialog"></activity>
-        <activity android:name=".mine.view.activites.LSSCActivity"></activity>
-        <activity android:name=".mine.view.activites.SettingsActivity"></activity>
+        <activity android:name=".mine.view.activites.SettingsActivity"/>
+        <activity android:name=".mine.view.activites.LSSCActivity"/>
+       <activity android:name=".serchaall.Search"/>
+        <activity android:name=".serchaall.SearchActivity"/>
+        <activity android:name=".RecommendPackage.Video.PageVideo"/>
     </application>
 
 </manifest>
