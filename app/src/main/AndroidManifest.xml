@@ -26,12 +26,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".VideoList.View.VideoListActivity"></activity>
-        <activity
-            android:name=".mine.view.activites.ThemeActivity"
+        <activity android:name=".mine.view.ThemeActivity"
             android:label="@string/theme_setting"
             android:screenOrientation="portrait"
             android:theme="@style/AppDialog"></activity>
-        <activity android:name=".mine.view.activites.SettingsActivity"></activity>
     </application>
 
 </manifest>
