@@ -101,7 +101,8 @@ public class MineFragment extends Fragment implements MineView {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_settings:
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.rel1_lishi:
                 break;
