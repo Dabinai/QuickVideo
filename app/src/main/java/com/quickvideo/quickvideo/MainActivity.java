@@ -1,24 +1,41 @@
 package com.quickvideo.quickvideo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.quickvideo.quickvideo.Classification.App.Myapp;
 import com.quickvideo.quickvideo.allbasic.BaseActivity;
+import com.quickvideo.quickvideo.bean.MenuBean;
 import com.quickvideo.quickvideo.fragments.ClassificationFragment;
 import com.quickvideo.quickvideo.fragments.DiscoverFragment;
+
+
 import com.quickvideo.quickvideo.mine.view.frag.MineFragment;
 import com.quickvideo.quickvideo.fragments.RecommendFragment;
+import com.quickvideo.quickvideo.leftmenu.utils.YijianDaiLog;
+import com.quickvideo.quickvideo.leftmenu.view.WelfareActivity;
+import com.quickvideo.quickvideo.mainui.MenusAdapter;
+import com.quickvideo.quickvideo.mainui.ResideLayout;
+import com.quickvideo.quickvideo.mine.view.MineFragment;
 import com.quickvideo.quickvideo.utils.NonSwipeableViewPager;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 //2017.1205
+
 
 
 
@@ -26,12 +43,23 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity{
     private Long firstTime = 0L;
-
+    @BindView(R.id.menu)
+    ListView menu_list;
+    @BindView(R.id.reside_layout)
+    ResideLayout resideLayout;
+    @BindView(R.id.about)
+    TextView about;
+    @BindView(R.id.theme)
+    TextView theme;
     @BindView(R.id.alphaIndicator)
     AlphaTabsIndicator alphaIndicator;
     @BindView(R.id.myviewpager)
     NonSwipeableViewPager myviewpager;
     private List<Fragment> fragList = new ArrayList<>();
+
+    private ArrayList<MenuBean> menuBeans;
+    private MenusAdapter menusAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +80,81 @@ public class MainActivity extends BaseActivity{
         });
         //设置ViewPager
         alphaIndicator.setViewPager(myviewpager);
+
+        //按钮列表
+        initMenu();
+
     }
 
     @Override
     public int getLayout() {
 
-        return  R.layout.activity_main;
+        return R.layout.activity_main;
+    }
+
+    private void initMenu() {
+
+
+        menuBeans = new ArrayList<>();
+        menuBeans.add(new MenuBean("我的收藏", R.mipmap.shoucang));
+        menuBeans.add(new MenuBean("我的下载", R.mipmap.xiazai));
+        menuBeans.add(new MenuBean("福利", R.mipmap.fuli));
+        menuBeans.add(new MenuBean("分享", R.mipmap.fenxiang));
+        menuBeans.add(new MenuBean("建议反馈", R.mipmap.yijian));
+        menuBeans.add(new MenuBean("设置", R.mipmap.shezi));
+
+        menusAdapter = new MenusAdapter(this, menuBeans);
+        menu_list.setAdapter(menusAdapter);
+        //监听
+        menu_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            private NiftyDialogBuilder dialogBuilder;
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    case 0:
+                        Toast.makeText(MainActivity.this, "我的收藏", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        Toast.makeText(MainActivity.this, "我的下载", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(MainActivity.this, "福利", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, WelfareActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        Toast.makeText(MainActivity.this, "分享", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+//                        Toast.makeText(MainActivity.this, "建议反馈", Toast.LENGTH_SHORT).show();
+                        YijianDaiLog yijianDaiLog = new YijianDaiLog(MainActivity.this);
+                        yijianDaiLog.showDialog();
+                        break;
+                    case 5:
+                        Toast.makeText(MainActivity.this, "设置", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+
+
+    }
+
+
+    //关于--主题，点击
+    @OnClick({R.id.about, R.id.theme})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.about:
+                Toast.makeText(MainActivity.this, "关于", Toast.LENGTH_SHORT).show();
+
+                break;
+            case R.id.theme:
+                Toast.makeText(MainActivity.this, "主题", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 
     private void initFrag() {
@@ -78,4 +175,8 @@ public class MainActivity extends BaseActivity{
             Myapp.exitApp();
         }
     }
+
+
+
+
 }
