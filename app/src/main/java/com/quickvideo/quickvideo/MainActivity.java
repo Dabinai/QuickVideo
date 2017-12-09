@@ -3,6 +3,7 @@ package com.quickvideo.quickvideo;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.View;
@@ -28,6 +29,8 @@ import com.quickvideo.quickvideo.mine.view.frag.MineFragment;
 
 import com.quickvideo.quickvideo.utils.NonSwipeableViewPager;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +61,8 @@ public class MainActivity extends BaseActivity {
 
     private ArrayList<MenuBean> menuBeans;
     private MenusAdapter menusAdapter;
+    final int WAIT_TIME = 200;
+    public final static String Banner_Stop = "Banner_Stop";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,8 +87,10 @@ public class MainActivity extends BaseActivity {
 
         //按钮列表
         initMenu();
-
     }
+
+
+
 
     @Override
     public int getLayout() {
