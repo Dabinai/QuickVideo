@@ -20,6 +20,7 @@ import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.bean.PinDaoBean;
 import com.quickvideo.quickvideo.client.ApiService;
 import com.quickvideo.quickvideo.client.ClientUtils;
+import com.quickvideo.quickvideo.client.MyDialog;
 import com.quickvideo.quickvideo.discoverall.DiscoverAdapterHua;
 import com.quickvideo.quickvideo.discoverall.cardswipelayout.CardConfig;
 import com.quickvideo.quickvideo.discoverall.cardswipelayout.CardItemTouchHelperCallback;
@@ -123,17 +124,15 @@ public class DiscoverFragment extends Fragment {
                             @Override
                             public void onSwipedClear() {
                                 Toast.makeText(getActivity(), "data clear", Toast.LENGTH_SHORT).show();
-                                final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-                                progressDialog.setTitle("等待");
-                                progressDialog.setMessage("人家正在加载呢！");
-                                progressDialog.show();
+                                final MyDialog mMyDialog = new MyDialog(getActivity());
+                                mMyDialog.show();
 
                                 recyclerView.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         page++;
                                         initData();
-                                        progressDialog.dismiss();
+                                        mMyDialog.dismiss();
                                         recyclerView.getAdapter().notifyDataSetChanged();
                                     }
                                 }, 3000L);
