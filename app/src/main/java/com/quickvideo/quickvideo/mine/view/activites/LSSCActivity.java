@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.GridView;
 
+import com.quickvideo.quickvideo.Classification.App.Myapp;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.allbasic.BaseActivity;
+import com.quickvideo.quickvideo.mine.adapter.LSSCAdapter;
 import com.quickvideo.quickvideo.mine.adapter.MineGridAdapter;
+import com.quickvideo.quickvideo.mine.bean.Bean;
 import com.quickvideo.quickvideo.mine.bean.MineBean;
 import com.quickvideo.quickvideo.mine.presenter.MinePresenter;
 import com.quickvideo.quickvideo.mine.view.MineView;
@@ -20,16 +23,23 @@ import butterknife.BindView;
  * 历史/收藏 界面
  */
 
-public class LSSCActivity extends BaseActivity implements MineView {
+public class LSSCActivity extends BaseActivity {
     @BindView(R.id.ls_sc_gridview)
     GridView lsScGridview;
+    private int flag;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
-        MinePresenter presenter = new MinePresenter(this);
-        presenter.getGridDatas();
+        getIntentData();
+        List<Bean> queryData = Myapp.getManager().queryData();
+        List<Bean> queryShuju = Myapp.getManager().queryShuju();
+        if (flag == 1) {
+            lsScGridview.setAdapter(new LSSCAdapter(this, queryData));
+        } else {
+            lsScGridview.setAdapter(new LSSCAdapter(this, queryShuju));
+        }
     }
 
     @Override
@@ -41,22 +51,8 @@ public class LSSCActivity extends BaseActivity implements MineView {
     @Override
     public void getIntentData() {
         super.getIntentData();
-
-    }
-
-    @Override
-    public void showOk() {
-
-    }
-
-    @Override
-    public void showError() {
-
-    }
-
-    @Override
-    public void showAdapter(List<MineBean> list) {
-        lsScGridview.setAdapter(new MineGridAdapter(LSSCActivity.this, list));
+        //获取标识，判断数据来自收藏还是历史
+        flag = getIntent().getIntExtra("flag", 0);
     }
 
     @Override

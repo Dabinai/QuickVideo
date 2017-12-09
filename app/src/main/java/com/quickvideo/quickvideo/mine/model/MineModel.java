@@ -1,6 +1,7 @@
 package com.quickvideo.quickvideo.mine.model;
 
 import com.quickvideo.quickvideo.R;
+import com.quickvideo.quickvideo.mine.bean.Bean;
 import com.quickvideo.quickvideo.mine.bean.MineBean;
 
 import java.util.ArrayList;
@@ -18,18 +19,18 @@ public class MineModel implements MineImodel {
     private int[] images = new int[]{
             R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round,
             R.mipmap.ic_launcher_round};
-    private List<MineBean> list;
+    private List<Bean> list;
 
     @Override
-    public List<MineBean> getData() {
-        MineBean bean = new MineBean();
+    public List<Bean> getData() {
+       Bean bean = new Bean();
         list = new ArrayList<>();
         for (int i = 0; i < titles.length; i++) {
-            bean.setIcon(images[i]);
-            bean.setName(titles[i]);
+            bean.setName(list.get(i).getName());
+            bean.setPic(list.get(i).getPic());
+            bean.setTag(list.get(i).getTag());
             list.add(bean);
         }
-
         return list;
     }
 }

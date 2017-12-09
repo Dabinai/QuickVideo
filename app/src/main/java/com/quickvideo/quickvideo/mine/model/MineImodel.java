@@ -1,5 +1,6 @@
 package com.quickvideo.quickvideo.mine.model;
 
+import com.quickvideo.quickvideo.mine.bean.Bean;
 import com.quickvideo.quickvideo.mine.bean.MineBean;
 
 import java.util.List;
@@ -9,5 +10,5 @@ import java.util.List;
  */
 
 public interface MineImodel {
-    List<MineBean> getData();
+    List<Bean> getData();
 }

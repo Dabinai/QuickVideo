@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.quickvideo.quickvideo.MainActivity;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.mine.adapter.MineGridAdapter;
+import com.quickvideo.quickvideo.mine.bean.Bean;
 import com.quickvideo.quickvideo.mine.bean.MineBean;
 import com.quickvideo.quickvideo.mine.presenter.MinePresenter;
 import com.quickvideo.quickvideo.mine.view.MineView;
@@ -104,18 +105,22 @@ public class MineFragment extends Fragment implements MineView {
         switch (view.getId()) {
             case R.id.my_settings:
 //                跳转到设置界面
-                startActivity(new Intent(getActivity(),SettingsActivity.class));
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.rel1_lishi:
-//                跳转到历史/收藏界面
-                startActivity(new Intent(getActivity(), LSSCActivity.class));
+//                跳转到历史界面
+                Intent intent1 = new Intent(getActivity(), LSSCActivity.class);
+                intent1.putExtra("flag", 1);
+                startActivity(intent1);
                 break;
             case R.id.rel2_huancun:
                 showToast("缓存已清理！");
                 break;
             case R.id.rel3_shoucang:
-//                跳转到历史/收藏界面
-                startActivity(new Intent(getActivity(), LSSCActivity.class));
+//                跳转到收藏界面
+                Intent intent2 = new Intent(getActivity(), LSSCActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.rel4_theme:
 //                更改主题界面
@@ -149,7 +154,7 @@ public class MineFragment extends Fragment implements MineView {
     }
 
     @Override
-    public void showAdapter(List<MineBean> list) {
+    public void showAdapter(List<Bean> list) {
         lishiGirdview.setAdapter(new MineGridAdapter(getActivity(), list));
     }
 
