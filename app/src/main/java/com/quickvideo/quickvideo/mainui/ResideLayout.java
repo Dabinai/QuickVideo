@@ -1,8 +1,7 @@
 package com.quickvideo.quickvideo.mainui;
 
-import android.view.ViewGroup;
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
@@ -13,17 +12,20 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
+import android.support.annotation.DrawableRes;
+import android.support.v4.view.AccessibilityDelegateCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
+import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
-import android.content.res.TypedArray;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.view.accessibility.AccessibilityEvent;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -37,18 +39,25 @@ import java.util.ArrayList;
 public class ResideLayout extends ViewGroup {
 
     private static final String TAG = "ResideLayout";
+
     /**
      * Default size of the overhang for a pane in the open state.
      * At least this much of a sliding pane will remain visible.
      * This indicates that there is more content available and provides
      * a "physical" edge to grab to pull it closed.
      */
-    private static final int DEFAULT_OVERHANG_SIZE = 80; // dp;
+    private static final int DEFAULT_OVERHANG_SIZE = 100; // dp;
+
+    /**
+     * If no fade color is given by default it will fade to 80% gray.
+     */
+    private static final int DEFAULT_FADE_COLOR = 0x00000000;
+    public static final int INT = 828;
 
     /**
      * The fade color used for the sliding panel. 0 = no fading.
      */
-    private int mSliderFadeColor = 0x99000000;
+    private int mSliderFadeColor = DEFAULT_FADE_COLOR;
 
     /**
      * Minimum velocity that will be detected as a fling
@@ -58,7 +67,17 @@ public class ResideLayout extends ViewGroup {
     /**
      * The fade color used for the panel covered by the slider. 0 = no fading.
      */
-    private int mCoveredFadeColor = 0xcc000000;
+    private int mCoveredFadeColor;
+
+    /**
+     * Drawable used to draw the shadow between panes by default.
+     */
+    private Drawable mShadowDrawableLeft;
+
+    /**
+     * Drawable used to draw the shadow between panes to support RTL (right to left language).
+     */
+    private Drawable mShadowDrawableRight;
 
     /**
      * The size of the overhang in pixels.
@@ -120,6 +139,8 @@ public class ResideLayout extends ViewGroup {
     private boolean mPreservedOpenState;
     private boolean mFirstLayout = true;
 
+    private final Rect mTmpRect = new Rect();
+
     private final ArrayList<DisableLayerRunnable> mPostedRunnables =
             new ArrayList<DisableLayerRunnable>();
 
@@ -142,13 +163,16 @@ public class ResideLayout extends ViewGroup {
     public interface PanelSlideListener {
         /**
          * Called when a sliding pane's position changes.
-         * @param panel The child view that was moved
+         *
+         * @param panel       The child view that was moved
          * @param slideOffset The new offset of this sliding pane within its range, from 0-1
          */
         public void onPanelSlide(View panel, float slideOffset);
+
         /**
          * Called when a sliding pane becomes slid completely open. The pane may or may not
          * be interactive at this point depending on how much of the pane is visible.
+         *
          * @param panel The child view that was slid to an open position, revealing other panes
          */
         public void onPanelOpened(View panel);
@@ -156,9 +180,28 @@ public class ResideLayout extends ViewGroup {
         /**
          * Called when a sliding pane becomes slid completely closed. The pane is now guaranteed
          * to be interactive. It may now obscure other views in the layout.
+         *
          * @param panel The child view that was slid to a closed position
          */
         public void onPanelClosed(View panel);
+    }
+
+    /**
+     * No-op stubs for {@link PanelSlideListener}. If you only want to implement a subset
+     * of the listener methods you can extend this instead of implement the full interface.
+     */
+    public static class SimplePanelSlideListener implements PanelSlideListener {
+        @Override
+        public void onPanelSlide(View panel, float slideOffset) {
+        }
+
+        @Override
+        public void onPanelOpened(View panel) {
+        }
+
+        @Override
+        public void onPanelClosed(View panel) {
+        }
     }
 
     public ResideLayout(Context context) {
@@ -175,7 +218,12 @@ public class ResideLayout extends ViewGroup {
         final float density = context.getResources().getDisplayMetrics().density;
         mOverhangSize = (int) (DEFAULT_OVERHANG_SIZE * density + 0.5f);
 
+        final ViewConfiguration viewConfig = ViewConfiguration.get(context);
+
         setWillNotDraw(false);
+
+        ViewCompat.setAccessibilityDelegate(this, new AccessibilityDelegate());
+        ViewCompat.setImportantForAccessibility(this, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_YES);
 
         mDragHelper = ViewDragHelper.create(this, 0.5f, new DragHelperCallback());
         mDragHelper.setMinVelocity(MIN_FLING_VELOCITY * density);
@@ -195,11 +243,43 @@ public class ResideLayout extends ViewGroup {
 
     /**
      * @return The distance the lower pane will parallax by when the upper pane is fully closed.
-     *
      * @see #setParallaxDistance(int)
      */
     public int getParallaxDistance() {
         return mParallaxBy;
+    }
+
+    /**
+     * Set the color used to fade the sliding pane out when it is slid most of the way offscreen.
+     *
+     * @param color An ARGB-packed color value
+     */
+    public void setSliderFadeColor(int color) {
+        mSliderFadeColor = color;
+    }
+
+    /**
+     * @return The ARGB-packed color value used to fade the sliding pane
+     */
+    public int getSliderFadeColor() {
+        return mSliderFadeColor;
+    }
+
+    /**
+     * Set the color used to fade the pane covered by the sliding pane out when the pane
+     * will become fully covered in the closed state.
+     *
+     * @param color An ARGB-packed color value
+     */
+    public void setCoveredFadeColor(int color) {
+        mCoveredFadeColor = color;
+    }
+
+    /**
+     * @return The ARGB-packed color value used to fade the fixed pane
+     */
+    public int getCoveredFadeColor() {
+        return mCoveredFadeColor;
     }
 
     public void setPanelSlideListener(PanelSlideListener listener) {
@@ -216,52 +296,26 @@ public class ResideLayout extends ViewGroup {
         if (mPanelSlideListener != null) {
             mPanelSlideListener.onPanelOpened(panel);
         }
+        sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     }
 
     void dispatchOnPanelClosed(View panel) {
         if (mPanelSlideListener != null) {
             mPanelSlideListener.onPanelClosed(panel);
         }
+        sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     }
 
     void updateObscuredViewsVisibility(View panel) {
-        final int startBound = getPaddingLeft();
-        final int endBound = getWidth() - getPaddingRight();
-        final int topBound = getPaddingTop();
-        final int bottomBound = getHeight() - getPaddingBottom();
-        final int left;
-        final int right;
-        final int top;
-        final int bottom;
-        if (panel != null && viewIsOpaque(panel)) {
-            left = panel.getLeft();
-            right = panel.getRight();
-            top = panel.getTop();
-            bottom = panel.getBottom();
-        } else {
-            left = right = top = bottom = 0;
-        }
 
         for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
             final View child = getChildAt(i);
-
             if (child == panel) {
                 // There are still more children above the panel but they won't be affected.
                 break;
             }
-
-            final int clampedChildLeft = Math.max(startBound, child.getLeft());
-            final int clampedChildTop = Math.max(topBound, child.getTop());
-            final int clampedChildRight = Math.min(endBound, child.getRight());
-            final int clampedChildBottom = Math.min(bottomBound, child.getBottom());
-            final int vis;
-            if (clampedChildLeft >= left && clampedChildTop >= top &&
-                    clampedChildRight <= right && clampedChildBottom <= bottom) {
-                vis = INVISIBLE;
-            } else {
-                vis = VISIBLE;
-            }
-            child.setVisibility(vis);
+            if (panel.getLeft() == 0)
+                child.setVisibility(INVISIBLE);
         }
     }
 
@@ -283,7 +337,10 @@ public class ResideLayout extends ViewGroup {
         if (Build.VERSION.SDK_INT >= 18) return false;
 
         final Drawable bg = v.getBackground();
-        return bg != null && bg.getOpacity() == PixelFormat.OPAQUE;
+        if (bg != null) {
+            return bg.getOpacity() == PixelFormat.OPAQUE;
+        }
+        return false;
     }
 
     @Override
@@ -297,7 +354,8 @@ public class ResideLayout extends ViewGroup {
         super.onDetachedFromWindow();
         mFirstLayout = true;
 
-        for (final DisableLayerRunnable dlr : mPostedRunnables) {
+        for (int i = 0, count = mPostedRunnables.size(); i < count; i++) {
+            final DisableLayerRunnable dlr = mPostedRunnables.get(i);
             dlr.run();
         }
         mPostedRunnables.clear();
@@ -312,7 +370,14 @@ public class ResideLayout extends ViewGroup {
 
         if (widthMode != MeasureSpec.EXACTLY) {
             if (isInEditMode()) {
-                if (widthMode == MeasureSpec.UNSPECIFIED) {
+                // Don't crash the layout editor. Consume all of the space if specified
+                // or pick a magic number from thin air otherwise.
+                // TODO Better communication with tools of this bogus state.
+                // It will crash on a real device.
+                if (widthMode == MeasureSpec.AT_MOST) {
+                    widthMode = MeasureSpec.EXACTLY;
+                } else if (widthMode == MeasureSpec.UNSPECIFIED) {
+                    widthMode = MeasureSpec.EXACTLY;
                     widthSize = 300;
                 }
             } else {
@@ -320,6 +385,9 @@ public class ResideLayout extends ViewGroup {
             }
         } else if (heightMode == MeasureSpec.UNSPECIFIED) {
             if (isInEditMode()) {
+                // Don't crash the layout editor. Pick a magic number from thin air instead.
+                // TODO Better communication with tools of this bogus state.
+                // It will crash on a real device.
                 if (heightMode == MeasureSpec.UNSPECIFIED) {
                     heightMode = MeasureSpec.AT_MOST;
                     heightSize = 300;
@@ -377,7 +445,7 @@ public class ResideLayout extends ViewGroup {
             if (lp.width == LayoutParams.WRAP_CONTENT) {
                 childWidthSpec = MeasureSpec.makeMeasureSpec(widthAvailable - horizontalMargin,
                         MeasureSpec.AT_MOST);
-            } else if (lp.width == LayoutParams.MATCH_PARENT) {
+            } else if (lp.width == LayoutParams.FILL_PARENT) {
                 childWidthSpec = MeasureSpec.makeMeasureSpec(widthAvailable - horizontalMargin,
                         MeasureSpec.EXACTLY);
             } else {
@@ -387,7 +455,7 @@ public class ResideLayout extends ViewGroup {
             int childHeightSpec;
             if (lp.height == LayoutParams.WRAP_CONTENT) {
                 childHeightSpec = MeasureSpec.makeMeasureSpec(maxLayoutHeight, MeasureSpec.AT_MOST);
-            } else if (lp.height == LayoutParams.MATCH_PARENT) {
+            } else if (lp.height == LayoutParams.FILL_PARENT) {
                 childHeightSpec = MeasureSpec.makeMeasureSpec(maxLayoutHeight, MeasureSpec.EXACTLY);
             } else {
                 childHeightSpec = MeasureSpec.makeMeasureSpec(lp.height, MeasureSpec.EXACTLY);
@@ -410,7 +478,7 @@ public class ResideLayout extends ViewGroup {
 
         // Resolve weight and make sure non-sliding panels are smaller than the full screen.
         if (canSlide || weightSum > 0) {
-//            final int fixedPanelWidthLimit = widthAvailable - mOverhangSize;
+            final int fixedPanelWidthLimit = widthAvailable;
 
             for (int i = 0; i < childCount; i++) {
                 final View child = getChildAt(i);
@@ -428,7 +496,7 @@ public class ResideLayout extends ViewGroup {
                 final boolean skippedFirstPass = lp.width == 0 && lp.weight > 0;
                 final int measuredWidth = skippedFirstPass ? 0 : child.getMeasuredWidth();
                 if (canSlide && child != mSlideableView) {
-                    if (lp.width < 0 && (measuredWidth > widthAvailable || lp.weight > 0)) {
+                    if (lp.width < 0 && (measuredWidth > fixedPanelWidthLimit || lp.weight > 0)) {
                         // Fixed panels in a sliding configuration should
                         // be clamped to the fixed panel limit.
                         final int childHeightSpec;
@@ -438,7 +506,7 @@ public class ResideLayout extends ViewGroup {
                             if (lp.height == LayoutParams.WRAP_CONTENT) {
                                 childHeightSpec = MeasureSpec.makeMeasureSpec(maxLayoutHeight,
                                         MeasureSpec.AT_MOST);
-                            } else if (lp.height == LayoutParams.MATCH_PARENT) {
+                            } else if (lp.height == LayoutParams.FILL_PARENT) {
                                 childHeightSpec = MeasureSpec.makeMeasureSpec(maxLayoutHeight,
                                         MeasureSpec.EXACTLY);
                             } else {
@@ -450,7 +518,7 @@ public class ResideLayout extends ViewGroup {
                                     child.getMeasuredHeight(), MeasureSpec.EXACTLY);
                         }
                         final int childWidthSpec = MeasureSpec.makeMeasureSpec(
-                                widthAvailable, MeasureSpec.EXACTLY);
+                                fixedPanelWidthLimit, MeasureSpec.EXACTLY);
                         child.measure(childWidthSpec, childHeightSpec);
                     }
                 } else if (lp.weight > 0) {
@@ -460,7 +528,7 @@ public class ResideLayout extends ViewGroup {
                         if (lp.height == LayoutParams.WRAP_CONTENT) {
                             childHeightSpec = MeasureSpec.makeMeasureSpec(maxLayoutHeight,
                                     MeasureSpec.AT_MOST);
-                        } else if (lp.height == LayoutParams.MATCH_PARENT) {
+                        } else if (lp.height == LayoutParams.FILL_PARENT) {
                             childHeightSpec = MeasureSpec.makeMeasureSpec(maxLayoutHeight,
                                     MeasureSpec.EXACTLY);
                         } else {
@@ -556,7 +624,8 @@ public class ResideLayout extends ViewGroup {
             childLeft = xStart - offset;
             childRight = childLeft + childWidth;
 
-            final int childBottom = paddingTop + child.getMeasuredHeight();
+            final int childTop = paddingTop;
+            final int childBottom = childTop + child.getMeasuredHeight();
             child.layout(childLeft, paddingTop, childRight, childBottom);
 
             nextXStart += child.getWidth();
@@ -566,6 +635,14 @@ public class ResideLayout extends ViewGroup {
             if (mCanSlide) {
                 if (mParallaxBy != 0) {
                     parallaxOtherViews(mSlideOffset);
+                }
+                if (((LayoutParams) mSlideableView.getLayoutParams()).dimWhenOffset) {
+                    dimChildView(mSlideableView, mSlideOffset, mSliderFadeColor);
+                }
+            } else {
+                // Reset the dim level of all children; it's irrelevant when nothing moves.
+                for (int i = 0; i < childCount; i++) {
+                    dimChildView(getChildAt(i), 0, mSliderFadeColor);
                 }
             }
             updateObscuredViewsVisibility(mSlideableView);
@@ -638,13 +715,7 @@ public class ResideLayout extends ViewGroup {
                 final float adx = Math.abs(x - mInitialMotionX);
                 final float ady = Math.abs(y - mInitialMotionY);
                 final int slop = mDragHelper.getTouchSlop();
-
-                View view = findViewAtPosition(this, (int) x, (int) y);
-
-                if (adx > slop && ady > adx || view != null) {
-                    if(view != null) {
-                        Log.d(TAG, "touch on unscrollable view");
-                    }
+                if (adx > slop && ady > adx) {
                     mDragHelper.cancel();
                     mIsUnableToDrag = true;
                     return false;
@@ -657,30 +728,8 @@ public class ResideLayout extends ViewGroup {
         return interceptForDrag || interceptTap;
     }
 
-    private View findViewAtPosition(View parent, int x, int y) {
-        if(parent instanceof ViewPager){
-            Rect rect = new Rect();
-            parent.getGlobalVisibleRect(rect);
-            if (rect.contains(x, y)) {
-                return parent;
-            }
-        }else if(parent instanceof ViewGroup){
-            ViewGroup viewGroup = (ViewGroup)parent;
-            final int length = viewGroup.getChildCount();
-            for (int i = 0; i < length; i++) {
-                View child = viewGroup.getChildAt(i);
-                View viewAtPosition = findViewAtPosition(child, x, y);
-                if (viewAtPosition != null) {
-                    return viewAtPosition;
-                }
-            }
-            return null;
-        }
-        return null;
-    }
-
     @Override
-    public boolean onTouchEvent(@NonNull MotionEvent ev) {
+    public boolean onTouchEvent(MotionEvent ev) {
         if (!mCanSlide) {
             return super.onTouchEvent(ev);
         }
@@ -688,6 +737,7 @@ public class ResideLayout extends ViewGroup {
         mDragHelper.processTouchEvent(ev);
 
         final int action = ev.getAction();
+        boolean wantTouchEvents = true;
 
         switch (action & MotionEventCompat.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: {
@@ -708,7 +758,7 @@ public class ResideLayout extends ViewGroup {
                     if (dx * dx + dy * dy < slop * slop &&
                             mDragHelper.isViewUnder(mSlideableView, (int) x, (int) y)) {
                         // Taps close a dimmed open pane.
-                        closePane();
+                        closePane(mSlideableView, 0);
                         break;
                     }
                 }
@@ -716,23 +766,59 @@ public class ResideLayout extends ViewGroup {
             }
         }
 
-        return true;
+        return wantTouchEvents;
     }
 
-    public boolean closePane() {
-        if (mFirstLayout || smoothSlideTo(0.f)) {
+    private boolean closePane(View pane, int initialVelocity) {
+        if (mFirstLayout || smoothSlideTo(0.f, initialVelocity)) {
             mPreservedOpenState = false;
             return true;
         }
         return false;
     }
 
-    public boolean openPane() {
-        if (mFirstLayout || smoothSlideTo(1.f)) {
+    private boolean openPane(View pane, int initialVelocity) {
+        if (mFirstLayout || smoothSlideTo(1.f, initialVelocity)) {
             mPreservedOpenState = true;
             return true;
         }
         return false;
+    }
+
+    /**
+     * @deprecated Renamed to {@link #openPane()} - this method is going away soon!
+     */
+    @Deprecated
+    public void smoothSlideOpen() {
+        openPane();
+    }
+
+    /**
+     * Open the sliding pane if it is currently slideable. If first layout
+     * has already completed this will animate.
+     *
+     * @return true if the pane was slideable and is now open/in the process of opening
+     */
+    public boolean openPane() {
+        return openPane(mSlideableView, 0);
+    }
+
+    /**
+     * @deprecated Renamed to {@link #closePane()} - this method is going away soon!
+     */
+    @Deprecated
+    public void smoothSlideClosed() {
+        closePane();
+    }
+
+    /**
+     * Close the sliding pane if it is currently slideable. If first layout
+     * has already completed this will animate.
+     *
+     * @return true if the pane was slideable and is now closed/in the process of closing
+     */
+    public boolean closePane() {
+        return closePane(mSlideableView, 0);
     }
 
     /**
@@ -743,6 +829,15 @@ public class ResideLayout extends ViewGroup {
      */
     public boolean isOpen() {
         return !mCanSlide || mSlideOffset == 1;
+    }
+
+    /**
+     * @return true if content in this layout can be slid open and closed
+     * @deprecated Renamed to {@link #isSlideable()} - this method is going away soon!
+     */
+    @Deprecated
+    public boolean canSlide() {
+        return mCanSlide;
     }
 
     /**
@@ -763,13 +858,18 @@ public class ResideLayout extends ViewGroup {
         }
         final LayoutParams lp = (LayoutParams) mSlideableView.getLayoutParams();
 
+        int childWidth = mSlideableView.getWidth();
+        final int newStart = newLeft;
+
         final int paddingStart = getPaddingLeft();
         final int lpMargin = lp.leftMargin;
         final int startBound = paddingStart + lpMargin;
 
-        mSlideOffset = (float) (newLeft - startBound) / mSlideRange;
+        mSlideOffset = (float) (newStart - startBound) / mSlideRange;
 
-        parallaxOtherViews(mSlideOffset);
+        if (mParallaxBy != 0) {
+            parallaxOtherViews(mSlideOffset);
+        }
 
         if (lp.dimWhenOffset) {
             dimChildView(mSlideableView, mSlideOffset, mSliderFadeColor);
@@ -803,49 +903,20 @@ public class ResideLayout extends ViewGroup {
     }
 
     @Override
-    protected boolean drawChild(@NonNull Canvas canvas, @NonNull View child, long drawingTime) {
-        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+    protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
         boolean result;
+        final LayoutParams lp = (LayoutParams) child.getLayoutParams();
         final int save = canvas.save(Canvas.ALL_SAVE_FLAG);
-
         if (mCanSlide && !lp.slideable && mSlideableView != null) {
-            // Clip against the slider; no sense drawing what will immediately be covered.
-            canvas.scale(1.2f -  0.2f * mSlideOffset, 1.2f -  0.2f * mSlideOffset, child.getRight(), getHeight() / 2);
+            canvas.scale(1.5f - 0.5f * mSlideOffset, 1.5f - 0.5f * mSlideOffset, child.getRight(), getHeight() / 2);
         } else {
-            assert mSlideableView != null;
-            canvas.scale(1 - mSlideOffset / 3, 1 - mSlideOffset / 3, mSlideableView.getLeft(), getHeight() / 2);
+            canvas.scale(1 - mSlideOffset / 5, 1 - mSlideOffset / 5, mSlideableView.getLeft(), getHeight() / 2);
             ViewCompat.setRotationY(child, -10 * mSlideOffset);
         }
 
-        if(!lp.slideable && mSlideOffset == 0) {
-            result = true;
-        }else {
-            if (Build.VERSION.SDK_INT >= 11) { // HC
-                result = super.drawChild(canvas, child, drawingTime);
-            } else {
-                if (lp.dimWhenOffset && mSlideOffset > 0) {
-                    if (!child.isDrawingCacheEnabled()) {
-                        child.setDrawingCacheEnabled(true);
-                    }
-                    final Bitmap cache = child.getDrawingCache();
-                    if (cache != null) {
-                        canvas.drawBitmap(cache, child.getLeft(), child.getTop(), lp.dimPaint);
-                        result = false;
-                    } else {
-                        Log.e(TAG, "drawChild: child view " + child + " returned null drawing cache");
-                        result = super.drawChild(canvas, child, drawingTime);
-                    }
-                } else {
-                    if (child.isDrawingCacheEnabled()) {
-                        child.setDrawingCacheEnabled(false);
-                    }
-                    result = super.drawChild(canvas, child, drawingTime);
-                }
-            }
-        }
+        result = super.drawChild(canvas, child, drawingTime);
 
         canvas.restoreToCount(save);
-
         return result;
     }
 
@@ -855,18 +926,20 @@ public class ResideLayout extends ViewGroup {
 
     /**
      * Smoothly animate mDraggingPane to the target X position within its range.
-     *  @param slideOffset position to animate to
      *
+     * @param slideOffset position to animate to
+     * @param velocity    initial velocity in case of fling, or 0.
      */
-    boolean smoothSlideTo(float slideOffset) {
+    boolean smoothSlideTo(float slideOffset, int velocity) {
         if (!mCanSlide) {
             // Nothing to do.
             return false;
         }
         final LayoutParams lp = (LayoutParams) mSlideableView.getLayoutParams();
 
+        int x;
         int startBound = getPaddingLeft() + lp.leftMargin;
-        int x = (int) (startBound + slideOffset * mSlideRange);
+        x = (int) (startBound + slideOffset * mSlideRange);
 
         if (mDragHelper.smoothSlideViewTo(mSlideableView, x, mSlideableView.getTop())) {
             setAllChildrenVisible();
@@ -888,9 +961,98 @@ public class ResideLayout extends ViewGroup {
         }
     }
 
+    /**
+     * @param d drawable to use as a shadow
+     * @deprecated Renamed to {@link #setShadowDrawableLeft(Drawable d)} to support LTR (left to
+     * right language) and {@link #setShadowDrawableRight(Drawable d)} to support RTL (right to left
+     * language) during opening/closing.
+     */
+    @Deprecated
+    public void setShadowDrawable(Drawable d) {
+        setShadowDrawableLeft(d);
+    }
+
+    /**
+     * Set a drawable to use as a shadow cast by the right pane onto the left pane
+     * during opening/closing.
+     *
+     * @param d drawable to use as a shadow
+     */
+    public void setShadowDrawableLeft(Drawable d) {
+        mShadowDrawableLeft = d;
+    }
+
+    /**
+     * Set a drawable to use as a shadow cast by the left pane onto the right pane
+     * during opening/closing to support right to left language.
+     *
+     * @param d drawable to use as a shadow
+     */
+    public void setShadowDrawableRight(Drawable d) {
+        mShadowDrawableRight = d;
+    }
+
+    /**
+     * Set a drawable to use as a shadow cast by the right pane onto the left pane
+     * during opening/closing.
+     *
+     * @param resId Resource ID of a drawable to use
+     */
+    @Deprecated
+    public void setShadowResource(@DrawableRes int resId) {
+        setShadowDrawable(getResources().getDrawable(resId));
+    }
+
+    /**
+     * Set a drawable to use as a shadow cast by the right pane onto the left pane
+     * during opening/closing.
+     *
+     * @param resId Resource ID of a drawable to use
+     */
+    public void setShadowResourceLeft(int resId) {
+        setShadowDrawableLeft(getResources().getDrawable(resId));
+    }
+
+    /**
+     * Set a drawable to use as a shadow cast by the left pane onto the right pane
+     * during opening/closing to support right to left language.
+     *
+     * @param resId Resource ID of a drawable to use
+     */
+    public void setShadowResourceRight(int resId) {
+        setShadowDrawableRight(getResources().getDrawable(resId));
+    }
+
+
+    @Override
+    public void draw(Canvas c) {
+        super.draw(c);
+        Drawable shadowDrawable;
+        shadowDrawable = mShadowDrawableLeft;
+
+        final View shadowView = getChildCount() > 1 ? getChildAt(1) : null;
+        if (shadowView == null || shadowDrawable == null) {
+            // No need to draw a shadow if we don't have one.
+            return;
+        }
+
+        final int top = shadowView.getTop();
+        final int bottom = shadowView.getBottom();
+
+        final int shadowWidth = shadowDrawable.getIntrinsicWidth();
+        final int left;
+        final int right;
+        right = shadowView.getLeft();
+        left = right - shadowWidth;
+
+        shadowDrawable.setBounds(left, top, right, bottom);
+        shadowDrawable.draw(c);
+    }
+
     private void parallaxOtherViews(float slideOffset) {
         final LayoutParams slideLp = (LayoutParams) mSlideableView.getLayoutParams();
-        final boolean dimViews = slideLp.dimWhenOffset && slideLp.leftMargin <= 0;
+        final boolean dimViews = slideLp.dimWhenOffset &&
+                (slideLp.leftMargin) <= 0;
         final int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             final View v = getChildAt(i);
@@ -904,9 +1066,44 @@ public class ResideLayout extends ViewGroup {
             v.offsetLeftAndRight(dx);
 
             if (dimViews) {
-                dimChildView(v, 1 - mParallaxOffset, mCoveredFadeColor);
+                dimChildView(v,
+                        1 - mParallaxOffset, mCoveredFadeColor);
             }
         }
+    }
+
+    /**
+     * Tests scrollability within child views of v given a delta of dx.
+     *
+     * @param v      View to test for horizontal scrollability
+     * @param checkV Whether the view v passed should itself be checked for scrollability (true),
+     *               or just its children (false).
+     * @param dx     Delta scrolled in pixels
+     * @param x      X coordinate of the active touch point
+     * @param y      Y coordinate of the active touch point
+     * @return true if child views of v can be scrolled by delta of dx.
+     */
+    protected boolean canScroll(View v, boolean checkV, int dx, int x, int y) {
+        if (v instanceof ViewGroup) {
+            final ViewGroup group = (ViewGroup) v;
+            final int scrollX = v.getScrollX();
+            final int scrollY = v.getScrollY();
+            final int count = group.getChildCount();
+            // Count backwards - let topmost views consume scroll distance first.
+            for (int i = count - 1; i >= 0; i--) {
+                // TODO: Add versioned support here for transformed views.
+                // This will not work for transformed views in Honeycomb+
+                final View child = group.getChildAt(i);
+                if (x + scrollX >= child.getLeft() && x + scrollX < child.getRight() &&
+                        y + scrollY >= child.getTop() && y + scrollY < child.getBottom() &&
+                        canScroll(child, true, dx, x + scrollX - child.getLeft(),
+                                y + scrollY - child.getTop())) {
+                    return true;
+                }
+            }
+        }
+
+        return checkV && ViewCompat.canScrollHorizontally(v, (-dx));
     }
 
     boolean isDimmed(View child) {
@@ -966,7 +1163,11 @@ public class ResideLayout extends ViewGroup {
 
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
-            return !mIsUnableToDrag && ((LayoutParams) child.getLayoutParams()).slideable;
+            if (mIsUnableToDrag) {
+                return false;
+            }
+
+            return ((LayoutParams) child.getLayoutParams()).slideable;
         }
 
         @Override
@@ -999,7 +1200,8 @@ public class ResideLayout extends ViewGroup {
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             final LayoutParams lp = (LayoutParams) releasedChild.getLayoutParams();
 
-            int left = getPaddingLeft() + lp.leftMargin;
+            int left;
+            left = getPaddingLeft() + lp.leftMargin;
             if (xvel > 0 || (xvel == 0 && mSlideOffset > 0.5f)) {
                 left += mSlideRange;
             }
@@ -1016,10 +1218,11 @@ public class ResideLayout extends ViewGroup {
         public int clampViewPositionHorizontal(View child, int left, int dx) {
             final LayoutParams lp = (LayoutParams) mSlideableView.getLayoutParams();
 
+            final int newLeft;
             int startBound = getPaddingLeft() + lp.leftMargin;
             int endBound = startBound + mSlideRange;
-
-            return Math.min(Math.max(left, startBound), endBound);
+            newLeft = Math.min(Math.max(left, startBound), endBound);
+            return newLeft;
         }
 
         @Override
@@ -1036,7 +1239,7 @@ public class ResideLayout extends ViewGroup {
     }
 
     public static class LayoutParams extends MarginLayoutParams {
-        private static final int[] ATTRS = new int[] {
+        private static final int[] ATTRS = new int[]{
                 android.R.attr.layout_weight
         };
 
@@ -1060,7 +1263,11 @@ public class ResideLayout extends ViewGroup {
         Paint dimPaint;
 
         public LayoutParams() {
-            super(MATCH_PARENT, MATCH_PARENT);
+            super(FILL_PARENT, FILL_PARENT);
+        }
+
+        public LayoutParams(int width, int height) {
+            super(width, height);
         }
 
         public LayoutParams(ViewGroup.LayoutParams source) {
@@ -1071,6 +1278,10 @@ public class ResideLayout extends ViewGroup {
             super(source);
         }
 
+        public LayoutParams(LayoutParams source) {
+            super(source);
+            this.weight = source.weight;
+        }
 
         public LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
@@ -1095,7 +1306,7 @@ public class ResideLayout extends ViewGroup {
         }
 
         @Override
-        public void writeToParcel(@NonNull Parcel out, int flags) {
+        public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
             out.writeInt(isOpen ? 1 : 0);
         }
@@ -1174,6 +1385,92 @@ public class ResideLayout extends ViewGroup {
         }
     }
 
+    class AccessibilityDelegate extends AccessibilityDelegateCompat {
+        private final Rect mTmpRect = new Rect();
+
+        @Override
+        public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
+            final AccessibilityNodeInfoCompat superNode = AccessibilityNodeInfoCompat.obtain(info);
+            super.onInitializeAccessibilityNodeInfo(host, superNode);
+            copyNodeInfoNoChildren(info, superNode);
+            superNode.recycle();
+
+            info.setClassName(ResideLayout.class.getName());
+            info.setSource(host);
+
+            final ViewParent parent = ViewCompat.getParentForAccessibility(host);
+            if (parent instanceof View) {
+                info.setParent((View) parent);
+            }
+
+            // This is a best-approximation of addChildrenForAccessibility()
+            // that accounts for filtering.
+            final int childCount = getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                final View child = getChildAt(i);
+                if (!filter(child) && (child.getVisibility() == View.VISIBLE)) {
+                    // Force importance to "yes" since we can't read the value.
+                    ViewCompat.setImportantForAccessibility(
+                            child, ViewCompat.IMPORTANT_FOR_ACCESSIBILITY_YES);
+                    info.addChild(child);
+                }
+            }
+        }
+
+        @Override
+        public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event) {
+            super.onInitializeAccessibilityEvent(host, event);
+
+            event.setClassName(ResideLayout.class.getName());
+        }
+
+        @Override
+        public boolean onRequestSendAccessibilityEvent(ViewGroup host, View child,
+                                                       AccessibilityEvent event) {
+            if (!filter(child)) {
+                return super.onRequestSendAccessibilityEvent(host, child, event);
+            }
+            return false;
+        }
+
+        public boolean filter(View child) {
+            return isDimmed(child);
+        }
+
+        /**
+         * This should really be in AccessibilityNodeInfoCompat, but there unfortunately
+         * seem to be a few elements that are not easily cloneable using the underlying API.
+         * Leave it private here as it's not general-purpose useful.
+         */
+        private void copyNodeInfoNoChildren(AccessibilityNodeInfoCompat dest,
+                                            AccessibilityNodeInfoCompat src) {
+            final Rect rect = mTmpRect;
+
+            src.getBoundsInParent(rect);
+            dest.setBoundsInParent(rect);
+
+            src.getBoundsInScreen(rect);
+            dest.setBoundsInScreen(rect);
+
+            dest.setVisibleToUser(src.isVisibleToUser());
+            dest.setPackageName(src.getPackageName());
+            dest.setClassName(src.getClassName());
+            dest.setContentDescription(src.getContentDescription());
+
+            dest.setEnabled(src.isEnabled());
+            dest.setClickable(src.isClickable());
+            dest.setFocusable(src.isFocusable());
+            dest.setFocused(src.isFocused());
+            dest.setAccessibilityFocused(src.isAccessibilityFocused());
+            dest.setSelected(src.isSelected());
+            dest.setLongClickable(src.isLongClickable());
+
+            dest.addAction(src.getActions());
+
+            dest.setMovementGranularities(src.getMovementGranularities());
+        }
+    }
+
     private class DisableLayerRunnable implements Runnable {
         final View mChildView;
 
@@ -1190,6 +1487,5 @@ public class ResideLayout extends ViewGroup {
             mPostedRunnables.remove(this);
         }
     }
-
 
 }
