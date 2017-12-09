@@ -21,6 +21,7 @@ import com.quickvideo.quickvideo.mine.adapter.MineGridAdapter;
 import com.quickvideo.quickvideo.mine.bean.Bean;
 import com.quickvideo.quickvideo.mine.bean.MineBean;
 import com.quickvideo.quickvideo.mine.presenter.MinePresenter;
+import com.quickvideo.quickvideo.mine.sqlite.OpenHelperManager;
 import com.quickvideo.quickvideo.mine.view.MineView;
 import com.quickvideo.quickvideo.mine.view.activites.LSSCActivity;
 import com.quickvideo.quickvideo.mine.view.activites.SettingsActivity;
@@ -82,6 +83,7 @@ public class MineFragment extends Fragment implements MineView {
     @BindView(R.id.rel4_theme)
     RelativeLayout rel4Theme;
     Unbinder unbinder;
+    private List<Bean> beanList;
 
     @Nullable
     @Override
@@ -90,6 +92,9 @@ public class MineFragment extends Fragment implements MineView {
         unbinder = ButterKnife.bind(this, view);
         MinePresenter presenter = new MinePresenter(this);
         presenter.getGridDatas();
+        OpenHelperManager manager = new OpenHelperManager(getActivity());
+        beanList = manager.queryData();
+        lishiGirdview.setAdapter(new MineGridAdapter(getActivity(), beanList));
         return view;
     }
 
@@ -155,7 +160,8 @@ public class MineFragment extends Fragment implements MineView {
 
     @Override
     public void showAdapter(List<Bean> list) {
-        lishiGirdview.setAdapter(new MineGridAdapter(getActivity(), list));
+
+//        lishiGirdview.setAdapter(new MineGridAdapter(getActivity(), list));
     }
 
 
