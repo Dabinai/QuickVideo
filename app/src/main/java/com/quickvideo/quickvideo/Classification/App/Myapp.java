@@ -8,6 +8,7 @@ import android.util.Log;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.quickvideo.quickvideo.mine.sqlite.OpenHelperManager;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,17 +17,26 @@ import java.util.Set;
  * Created by Administrator on 2017/12/5.
  */
 
-public class Myapp extends Application{
+public class Myapp extends Application {
+    private static OpenHelperManager manager = null;
     public static Context mcontext;
     public static Set<Activity> allActivities;
+
     @Override
     public void onCreate() {
         super.onCreate();
         Fresco.initialize(this);
-        if(mcontext == null){
-            mcontext =this;
+        if (mcontext == null) {
+            mcontext = this;
         }
         Logger.addLogAdapter(new AndroidLogAdapter());
+
+        manager = new OpenHelperManager(this);
+    }
+
+    //获取数据库管理类单例
+    public static OpenHelperManager getManager() {
+        return manager;
     }
 
     //登记Activity
@@ -62,7 +72,6 @@ public class Myapp extends Application{
         System.exit(0);
         Log.d("Ddddd", "unregisterActivity: 销毁成功");
     }
-
 
 
 }

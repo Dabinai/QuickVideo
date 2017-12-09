@@ -1,5 +1,7 @@
 package com.quickvideo.quickvideo.mine.presenter;
 
+import com.quickvideo.quickvideo.Classification.App.Myapp;
+import com.quickvideo.quickvideo.mine.bean.Bean;
 import com.quickvideo.quickvideo.mine.bean.MineBean;
 import com.quickvideo.quickvideo.mine.model.MineModel;
 import com.quickvideo.quickvideo.mine.view.MineView;
@@ -20,9 +22,10 @@ public class MinePresenter {
     }
 
     public void getGridDatas() {
-        List<MineBean> data = mineModel.getData();
-        if (data != null) {
-            mineView.showAdapter(data);
+        List<Bean> beanList = Myapp.getManager().queryData();
+        beanList = mineModel.getData();
+        if (beanList != null) {
+            mineView.showAdapter(beanList);
             mineView.showOk();
         } else {
             mineView.showError();

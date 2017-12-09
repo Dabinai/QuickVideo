@@ -1,5 +1,6 @@
 package com.quickvideo.quickvideo.mine.view;
 
+import com.quickvideo.quickvideo.mine.bean.Bean;
 import com.quickvideo.quickvideo.mine.bean.MineBean;
 
 import java.util.List;
@@ -13,5 +14,5 @@ public interface MineView {
 
     void showError();
 
-    void showAdapter(List<MineBean> list);
+    void showAdapter(List<Bean> list);
 }
