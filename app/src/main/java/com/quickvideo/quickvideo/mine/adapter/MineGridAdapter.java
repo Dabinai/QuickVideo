@@ -31,7 +31,12 @@ public class MineGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+//        if (list.size() <2 ) {
+//        return list.size();
+//        } else {
+//            return 3;
+//        }
+        return list.size();
     }
 
     @Override

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.quickvideo.quickvideo.Classification.App.Myapp;
 import com.quickvideo.quickvideo.Classification.adapter.MyClassificationAdapter;
 import com.quickvideo.quickvideo.Classification.presenter.IClassificationPresenter;
 import com.quickvideo.quickvideo.Classification.view.IClassificationView;
@@ -21,6 +22,7 @@ import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.VideoList.View.VideoListActivity;
 import com.quickvideo.quickvideo.bean.ShouYeBean;
 import com.quickvideo.quickvideo.client.OnClickRecyclerListner;
+import com.quickvideo.quickvideo.mine.bean.Bean;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +60,6 @@ public class ClassificationFragment extends Fragment implements IClassificationV
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
         recyclerview.setLayoutManager(manager);
         //trim = classifiationTv.getText().toString().trim();
-
 
 
         recyclerview.setLoadingListener(new XRecyclerView.LoadingListener() {
@@ -108,8 +109,22 @@ public class ClassificationFragment extends Fragment implements IClassificationV
                         @Override
                         public void onItemClick(View view, int position) {
                             Intent intent = new Intent(getActivity(), VideoListActivity.class);
-                            intent.putExtra("title",list.get(position).title);
-                                startActivity(intent);
+                            intent.putExtra("title", list.get(position).title);
+                            startActivity(intent);
+                            /**
+                             * 在点击的时候获取值然后存到数据库
+                             * 历史界面就可以接收显示数据
+                             */
+                            String title = list.get(position).title;
+                            String pic = list.get(position).childList.get(0).pic;
+                            Bean bean = new Bean(title, pic, position);
+                            //使用数据库存储数据
+                            boolean b = Myapp.getManager().ifEquals(bean);
+                            if (b) {
+
+                            } else {
+                                Myapp.getManager().putData(bean);
+                            }
                         }
 
                         @Override

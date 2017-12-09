@@ -43,7 +43,7 @@ import butterknife.Unbinder;
  * 4.主题（换肤，点击弹出DiaLog）
  */
 
-public class MineFragment extends Fragment implements MineView {
+public class MineFragment extends Fragment {
     //背景图片
     @BindView(R.id.img_my_bg)
     ImageView imgMyBg;
@@ -90,8 +90,8 @@ public class MineFragment extends Fragment implements MineView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.frag_mine, null);
         unbinder = ButterKnife.bind(this, view);
-        MinePresenter presenter = new MinePresenter(this);
-        presenter.getGridDatas();
+//        MinePresenter presenter = new MinePresenter(this);
+//        presenter.getGridDatas();
         OpenHelperManager manager = new OpenHelperManager(getActivity());
         beanList = manager.queryData();
         lishiGirdview.setAdapter(new MineGridAdapter(getActivity(), beanList));
@@ -148,21 +148,21 @@ public class MineFragment extends Fragment implements MineView {
         }
     }
 
-    @Override
-    public void showOk() {
-        //showToast("成功");
-    }
-
-    @Override
-    public void showError() {
-        showToast("失败");
-    }
-
-    @Override
-    public void showAdapter(List<Bean> list) {
-
-//        lishiGirdview.setAdapter(new MineGridAdapter(getActivity(), list));
-    }
+//    @Override
+//    public void showOk() {
+//        //showToast("成功");
+//    }
+//
+//    @Override
+//    public void showError() {
+//        showToast("失败");
+//    }
+//
+//    @Override
+//    public void showAdapter(List<Bean> list) {
+//
+////        lishiGirdview.setAdapter(new MineGridAdapter(getActivity(), list));
+//    }
 
 
     public void showToast(String string) {
