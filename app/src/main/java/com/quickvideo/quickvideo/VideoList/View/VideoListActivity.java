@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.quickvideo.quickvideo.Classification.App.Myapp;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.RecommendPackage.Video.PageVideo;
 import com.quickvideo.quickvideo.VideoList.Presenter.VideoListPresenter;
@@ -19,6 +20,7 @@ import com.quickvideo.quickvideo.VideoList.adapter.MyVideoListAdapter;
 import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.bean.PinDaoBean;
 import com.quickvideo.quickvideo.client.OnClickRecyclerListner;
+import com.quickvideo.quickvideo.mine.bean.Bean;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -92,6 +94,21 @@ public class VideoListActivity extends SwipeBackActivity  implements VideoListVi
                             //Toast.makeText(VideoListActivity.this, "能跳"+position, Toast.LENGTH_SHORT).show();
                             EventBus.getDefault().postSticky(new FirsEvent(vlist.get(position).dataId));
                             startActivity(new Intent(VideoListActivity.this, PageVideo.class));
+
+                            /**
+                             * 在点击的时候获取值然后存到数据库
+                             * 历史界面就可以接收显示数据
+                             */
+                            String title = vlist.get(position).title;
+                            String pic = vlist.get(position).pic;
+                            Bean bean = new Bean(title,pic,position);
+                            //使用数据库存储数据
+                            boolean b = Myapp.getManager().ifEquals(bean);
+                            if (b) {
+
+                            } else {
+                                Myapp.getManager().putData(bean);
+                            }
                         }
 
                         @Override
