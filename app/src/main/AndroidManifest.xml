@@ -6,6 +6,13 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
     <application
         android:name=".Classification.App.Myapp"
@@ -19,24 +26,52 @@
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".VideoList.View.VideoListActivity" />
+        <activity
+            android:name=".mine.view.activites.ThemeActivity"
+            android:label="@string/theme_setting"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppDialog" />
+        <activity android:name=".mine.view.activites.LSSCActivity" />
+        <activity android:name=".mine.view.activites.SettingsActivity" />
+        <activity android:name=".RecommendPackage.Video.PageVideo" />
+        <activity android:name=".serchaall.SearchActivity" />
+        <activity android:name=".serchaall.Search" />
+        <activity android:name=".leftmenu.view.WelfareActivity" />
+        <activity android:name=".WelcomActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VideoList.View.VideoListActivity"></activity>
+        <!-- QQ  start -->
         <activity
-            android:name=".mine.view.activites.ThemeActivity"
-            android:label="@string/theme_setting"
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppDialog"></activity>
-        <activity android:name=".mine.view.activites.LSSCActivity"></activity>
-        <activity android:name=".mine.view.activites.SettingsActivity"></activity>
-        <activity android:name=".RecommendPackage.Video.PageVideo"/>
-        <activity android:name=".serchaall.SearchActivity"/>
-        <activity android:name=".serchaall.Search"/>
-        <activity android:name=".leftmenu.view.WelfareActivity"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- QQ  end -->
+        <!-- 友盟key  -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5a2ba202f43e4843c6000376"></meta-data>
+
     </application>
 
 </manifest>

@@ -21,4 +21,24 @@
     <color name="common_color">@color/primary</color>
     <!--  <color name="battery">#33ff00</color> -->
     <color name="defalut">#080099cc</color>
+    <!--分享专用-->
+    <color name="umeng_white">#ffffff</color>
+    <color name="umeng_blue">#0086DC</color>
+    <color name="umeng_black">#000000</color>
+    <color name="umeng_background">#D4E0E5</color>
+    <color name="umeng_text_color">#575A5C</color>
+    <color name="umeng_divide">#C3C6C9</color>
+    <color name="vk_color">#5585BC</color>
+    <color name="vk_grey_color">#F0F2F5</color>
+    <color name="vk_white">#fff</color>
+    <color name="vk_light_color">#A7C2DF</color>
+    <color name="vk_clear">#0000</color>
+    <color name="vk_black_pressed">#1000</color>
+    <color name="vk_black">#000</color>
+    <color name="vk_share_blue_color">#338cc9</color>
+    <color name="vk_share_gray_line">#e5e5e5</color>
+    <color name="vk_share_top_blue_color">#527dad</color>
+    <color name="vk_share_link_title_color">#5477a3</color>
+    <color name="vk_share_link_color">#9e9e9e</color>
+
 </resources>

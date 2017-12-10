@@ -28,12 +28,19 @@ import com.quickvideo.quickvideo.mainui.ResideLayout;
 import com.quickvideo.quickvideo.mine.view.frag.MineFragment;
 
 import com.quickvideo.quickvideo.utils.NonSwipeableViewPager;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMWeb;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,9 +96,6 @@ public class MainActivity extends BaseActivity {
         initMenu();
     }
 
-
-
-
     @Override
     public int getLayout() {
 
@@ -134,6 +138,16 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 3:
                         Toast.makeText(MainActivity.this, "分享", Toast.LENGTH_SHORT).show();
+                        UMWeb web = new UMWeb("https://daohang.qq.com/?fr=hmpage");
+                        web.setTitle("This is music title");//标题
+                        web.setDescription("my description");//描述
+
+                        new ShareAction(MainActivity.this)
+                                .setPlatform(SHARE_MEDIA.QQ)//传入平台
+                                .withMedia(web)
+                                .setCallback(shareListener)//回调监听器
+                                .share();
+
                         break;
                     case 4:
 //                        Toast.makeText(MainActivity.this, "建议反馈", Toast.LENGTH_SHORT).show();
@@ -184,7 +198,83 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.user_icon:
                 Toast.makeText(MainActivity.this, "登陆头像", Toast.LENGTH_SHORT).show();
+                UMShareAPI.get(MainActivity.this).getPlatformInfo(MainActivity.this, SHARE_MEDIA.QQ,umAuthListener);
                 break;
         }
+    }
+    UMAuthListener umAuthListener  = new UMAuthListener() {
+        @Override
+        public void onStart(SHARE_MEDIA share_media) {
+
+        }
+
+        @Override
+        public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
+            System.out.println("uid========"+map.get("uid"));
+            System.out.println("name========"+map.get("name"));
+            System.out.println("iconurl========"+map.get("iconurl"));
+            Toast.makeText(MainActivity.this , "登录成功"+map.get("name"),Toast.LENGTH_SHORT).show();
+
+            //ImageLoader.getInstance().displayImage(map.get("iconurl"),userIcon);
+            //设置QQ名字
+            // mname.setText(map.get("name"));
+            userIcon.setImageURI(map.get("iconurl"));
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
+
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA share_media, int i) {
+
+        }
+    };
+
+    private UMShareListener shareListener = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(MainActivity.this,"成功了",Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(MainActivity.this,"失败"+t.getMessage(),Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(MainActivity.this,"取消了",Toast.LENGTH_LONG).show();
+
+        }
+    };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(MainActivity.this).onActivityResult( requestCode, resultCode, data);
     }
 }
