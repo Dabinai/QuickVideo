@@ -27,7 +27,7 @@ import com.quickvideo.quickvideo.bean.ShouYeBean;
 
 public class RecommendFragment extends Fragment implements Reco {
     RecyclerView xr;
-    SwipeRefreshLayout mySwipeRefreshLayout;
+    //SwipeRefreshLayout mySwipeRefreshLayout;
     XRHomeAdapter xrHomeAdapter;
     private Toolbar mToolBar;
     @Nullable
@@ -35,12 +35,12 @@ public class RecommendFragment extends Fragment implements Reco {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.frag_recommend, null);
         xr = view.findViewById(R.id.shouye_XR);
-        mySwipeRefreshLayout = view.findViewById(R.id.mySwipeRefreshLayout);
+       /* mySwipeRefreshLayout = view.findViewById(R.id.mySwipeRefreshLayout);
         mToolBar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolBar.setLogo(getResources().getDrawable(R.mipmap.ic_launcher));
         mToolBar.setTitle("这是标题");
 
-        mToolBar.inflateMenu(R.menu.menu);
+        mToolBar.inflateMenu(R.menu.menu);*/
         RecommendPresenter recommendPresenter = new RecommendPresenter(this);
         recommendPresenter.getmessage();
         xr.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -53,7 +53,7 @@ public class RecommendFragment extends Fragment implements Reco {
         xrHomeAdapter = new XRHomeAdapter(shouYeBean,getActivity());
         xr.setAdapter(xrHomeAdapter);
         //设置卷内的颜色
-        mySwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+      /*  mySwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
         //设置下拉刷新监听
         mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -67,7 +67,7 @@ public class RecommendFragment extends Fragment implements Reco {
                     }
                 }, 3000);
             }
-        });
+        });*/
 
     }
 }
