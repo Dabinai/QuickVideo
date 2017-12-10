@@ -110,7 +110,7 @@ public class DiscoverFragment extends BaseMVPFragment<DisPresenter> implements D
                     @Override
                     public void run() {
                         page++;
-                        initData();
+                        shuaiXin();
                         mMyDialog.dismiss();
                         discoverRecycler.getAdapter().notifyDataSetChanged();
                     }
@@ -136,7 +136,7 @@ public class DiscoverFragment extends BaseMVPFragment<DisPresenter> implements D
     @OnClick(R.id.discover_button)
     public void onViewClicked() {
         page++;
-        initData();
+        shuaiXin();
     }
 
 
@@ -148,6 +148,9 @@ public class DiscoverFragment extends BaseMVPFragment<DisPresenter> implements D
     @Override
     public void initView(LayoutInflater inflater) {
         super.initView(inflater);
+       shuaiXin();
+    }
+    public void shuaiXin(){
         mPresenter = new DisPresenter(this);
         mPresenter.setUrl("402834815584e463015584e539330016", page + "");
         mPresenter.showFrag();

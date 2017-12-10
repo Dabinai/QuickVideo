@@ -51,11 +51,13 @@ public class CardLayoutManager extends RecyclerView.LayoutManager {
                         heightSpace / 2 + getDecoratedMeasuredHeight(view));
 
                 if (position == CardConfig.DEFAULT_SHOW_ITEM) {
-                    view.setScaleX(1 - (position - 1) * CardConfig.DEFAULT_SCALE);
+                    view.setScaleX(1);
+                    //view.setScaleX(1 - (position - 1) * CardConfig.DEFAULT_SCALE);
                     view.setScaleY(1 - (position - 1) * CardConfig.DEFAULT_SCALE);
                     view.setTranslationY((position - 1) * view.getMeasuredHeight() / CardConfig.DEFAULT_TRANSLATE_Y);
                 } else if (position > 0) {
-                    view.setScaleX(1 - position * CardConfig.DEFAULT_SCALE);
+                    view.setScaleX(1);
+                    //view.setScaleX(1 - position * CardConfig.DEFAULT_SCALE);
                     view.setScaleY(1 - position * CardConfig.DEFAULT_SCALE);
                     view.setTranslationY(position * view.getMeasuredHeight() / CardConfig.DEFAULT_TRANSLATE_Y);
                 } else {
@@ -76,7 +78,8 @@ public class CardLayoutManager extends RecyclerView.LayoutManager {
                         heightSpace / 2 + getDecoratedMeasuredHeight(view));
 
                 if (position > 0) {
-                    view.setScaleX(1 - position * CardConfig.DEFAULT_SCALE);
+                    view.setScaleX(1);
+                    //view.setScaleX(1 - position * CardConfig.DEFAULT_SCALE);
                     view.setScaleY(1 - position * CardConfig.DEFAULT_SCALE);
                     view.setTranslationY(position * view.getMeasuredHeight() / CardConfig.DEFAULT_TRANSLATE_Y);
                 } else {
