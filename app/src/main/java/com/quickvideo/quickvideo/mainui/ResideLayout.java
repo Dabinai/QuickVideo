@@ -667,7 +667,7 @@ public class ResideLayout extends ViewGroup {
             mPreservedOpenState = child == mSlideableView;
         }
     }
-
+    //解决抽屉滑动冲突
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         final int action = MotionEventCompat.getActionMasked(ev);
@@ -727,7 +727,7 @@ public class ResideLayout extends ViewGroup {
 
         return interceptForDrag || interceptTap;
     }
-
+    //解决抽屉滑动冲突
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (!mCanSlide) {
@@ -843,8 +843,10 @@ public class ResideLayout extends ViewGroup {
     /**
      * Check if the content in this layout cannot fully fit side by side and therefore
      * the content pane can be slid back and forth.
-     *
+     *检查是否这个布局的内容不能完全适应并排,因此内容窗格可以来回滑。
      * @return true if content in this layout can be slid open and closed
+     *
+
      */
     public boolean isSlideable() {
         return mCanSlide;

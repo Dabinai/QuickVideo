@@ -1,11 +1,14 @@
 package com.quickvideo.quickvideo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -25,6 +28,9 @@ import com.quickvideo.quickvideo.leftmenu.view.WelfareActivity;
 import com.quickvideo.quickvideo.mainui.MenusAdapter;
 import com.quickvideo.quickvideo.mainui.ResideLayout;
 
+import com.quickvideo.quickvideo.mine.view.activites.LSSCActivity;
+import com.quickvideo.quickvideo.mine.view.activites.SettingsActivity;
+import com.quickvideo.quickvideo.mine.view.activites.ThemeActivity;
 import com.quickvideo.quickvideo.mine.view.frag.MineFragment;
 
 import com.quickvideo.quickvideo.utils.NonSwipeableViewPager;
@@ -126,7 +132,11 @@ public class MainActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
                     case 0:
-                        Toast.makeText(MainActivity.this, "我的收藏", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "我的收藏", Toast.LENGTH_SHORT).show();
+
+                        //                跳转到收藏界面
+                        Intent intent2 = new Intent(MainActivity.this, LSSCActivity.class);
+                        startActivity(intent2);
                         break;
                     case 1:
                         Toast.makeText(MainActivity.this, "我的下载", Toast.LENGTH_SHORT).show();
@@ -147,7 +157,6 @@ public class MainActivity extends BaseActivity {
                                 .withMedia(web)
                                 .setCallback(shareListener)//回调监听器
                                 .share();
-
                         break;
                     case 4:
 //                        Toast.makeText(MainActivity.this, "建议反馈", Toast.LENGTH_SHORT).show();
@@ -160,10 +169,7 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
-
-
     }
-
 
     private void initFrag() {
         fragList.add(new RecommendFragment());
@@ -183,8 +189,6 @@ public class MainActivity extends BaseActivity {
             Myapp.exitApp();
         }
     }
-
-
     //头像---关于--主题，点击
 
     @OnClick({R.id.user_icon, R.id.about, R.id.theme})
@@ -192,9 +196,25 @@ public class MainActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.about:
                 Toast.makeText(MainActivity.this, "关于", Toast.LENGTH_SHORT).show();
+                //                点击弹出关于我们对话框
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
+                View view2 = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_about_us_layout, null);
+                builder1.setView(view2);
+                final AlertDialog guanyudialog = builder1.create();
+                TextView close = view2.findViewById(R.id.close);
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        guanyudialog.dismiss();
+                    }
+                });
+                guanyudialog.show();
                 break;
             case R.id.theme:
-                Toast.makeText(MainActivity.this, "主题", Toast.LENGTH_SHORT).show();
+                //                更改主题界面
+                Intent i = new Intent(MainActivity.this, ThemeActivity.class);
+                startActivityForResult(i, 0);
+
                 break;
             case R.id.user_icon:
                 Toast.makeText(MainActivity.this, "登陆头像", Toast.LENGTH_SHORT).show();
@@ -272,9 +292,18 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+    //处理主题
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            if (resultCode == Activity.RESULT_OK) {
+                this.finish();
+
+                Intent i = new Intent(this, MainActivity.class);
+                startActivity(i);
+            }
+        }
         UMShareAPI.get(MainActivity.this).onActivityResult( requestCode, resultCode, data);
     }
 }

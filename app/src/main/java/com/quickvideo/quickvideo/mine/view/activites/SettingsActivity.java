@@ -9,8 +9,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.quickvideo.quickvideo.MainActivity;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.allbasic.BaseActivity;
+import com.quickvideo.quickvideo.leftmenu.utils.YijianDaiLog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -89,12 +91,9 @@ public class SettingsActivity extends BaseActivity {
 
                 break;
             case R.id.setting_fankui:
-//                点击弹出反馈对话框
-                AlertDialog.Builder builder3 = new AlertDialog.Builder(SettingsActivity.this);
-                View view3 = LayoutInflater.from(SettingsActivity.this).inflate(R.layout.dialog_layout, null);
-                builder3.setView(view3);
-                final AlertDialog fankui = builder3.create();
-                fankui.show();
+                //反馈
+                YijianDaiLog yijianDaiLog = new YijianDaiLog(SettingsActivity.this);
+                yijianDaiLog.showDialog();
                 break;
         }
     }

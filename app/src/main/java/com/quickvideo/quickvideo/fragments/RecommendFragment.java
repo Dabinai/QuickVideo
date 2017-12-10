@@ -8,6 +8,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +52,7 @@ public class RecommendFragment extends Fragment implements Reco {
     }
     @Override
     public void getHomeMessage(ShouYeBean shouYeBean) {
-        xrHomeAdapter = new XRHomeAdapter(shouYeBean,getActivity());
+        xrHomeAdapter = new XRHomeAdapter(shouYeBean,getActivity(),getMetrics());
         xr.setAdapter(xrHomeAdapter);
         //设置卷内的颜色
       /*  mySwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -70,4 +72,17 @@ public class RecommendFragment extends Fragment implements Reco {
         });*/
 
     }
+
+    //获取屏幕宽度,高度
+    public int getMetrics(){
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
+
+        Log.d("首页", "onCreate: 屏幕宽度"+ screenWidth +"------高度:"+screenHeight);
+        return screenWidth;
+    }
+
 }

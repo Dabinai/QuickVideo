@@ -1,18 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="240dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:padding="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     >
-<com.facebook.drawee.view.SimpleDraweeView
-    android:id="@+id/home_img"
-    android:layout_width="500dp"
-    android:layout_height="220dp" />
-    <TextView
-        android:id="@+id/home_title"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:text="111"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#68e4e7e9"
+        app:cardCornerRadius="10dp"
+        >
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/home_img"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            app:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@mipmap/icon_placeholder"
+            fresco:placeholderImageScaleType="fitCenter"
+            fresco:failureImage="@mipmap/icon_failure"
+            fresco:failureImageScaleType="centerInside"
+            fresco:retryImage="@mipmap/icon_retry"
+            fresco:retryImageScaleType="centerCrop"
+            fresco:progressBarImage="@mipmap/icon_progress_bar"
+            fresco:progressBarImageScaleType="centerInside"
+            fresco:progressBarAutoRotateInterval="1000"
+            fresco:fadeDuration="2000"
+            fresco:roundAsCircle="false"
+            fresco:roundedCornerRadius="10dp"
+            fresco:roundTopLeft="true"
+            fresco:roundTopRight="true"
+            fresco:roundBottomLeft="true"
+            fresco:roundBottomRight="true"
+            />
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="30dp">
+        <TextView
+            android:id="@+id/home_title"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="电影名字"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+    </LinearLayout>
+
+
 </LinearLayout>

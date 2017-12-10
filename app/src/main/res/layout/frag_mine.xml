@@ -52,7 +52,7 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginRight="10dp"
-                android:src="@mipmap/ic_launcher_round" />
+                android:src="@mipmap/icon_lishi" />
 
             <TextView
                 android:id="@+id/rel1_lishi_text"
@@ -79,7 +79,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="10dp"
-                android:background="#f909" />
+                android:background="@color/mine_item_bottom_color" />
         </RelativeLayout>
 
         <LinearLayout
@@ -121,7 +121,7 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginRight="10dp"
-                android:src="@mipmap/ic_launcher_round" />
+                android:src="@mipmap/icon_huancun" />
 
             <TextView
                 android:id="@+id/rel2_huancun_text"
@@ -148,7 +148,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="10dp"
-                android:background="#f909" />
+                android:background="@color/mine_item_bottom_color" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -162,7 +162,7 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginRight="10dp"
-                android:src="@mipmap/ic_launcher_round" />
+                android:src="@mipmap/shoucang" />
 
             <TextView
                 android:id="@+id/rel3_text"
@@ -189,7 +189,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="10dp"
-                android:background="#f909" />
+                android:background="@color/mine_item_bottom_color" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -203,7 +203,7 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginRight="10dp"
-                android:src="@mipmap/ic_launcher_round" />
+                android:src="@mipmap/zhuti" />
 
             <TextView
                 android:id="@+id/rel4_text"
@@ -230,7 +230,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="10dp"
-                android:background="#f909" />
+                android:background="@color/mine_item_bottom_color" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

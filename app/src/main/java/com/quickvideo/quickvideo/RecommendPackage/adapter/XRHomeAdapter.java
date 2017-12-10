@@ -35,11 +35,12 @@ public class XRHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     ShouYeBean shouYeBean;
     Context context;
     ArrayList mlist;
+    int screenWidth;
 
-
-    public XRHomeAdapter(ShouYeBean shouYeBean, Context context) {
+    public XRHomeAdapter(ShouYeBean shouYeBean, Context context, int screenWidth) {
         this.shouYeBean = shouYeBean;
         this.context = context;
+        this.screenWidth = screenWidth;
     }
 
     private enum Item_Type {
@@ -89,7 +90,7 @@ public class XRHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         } else if (holder instanceof ViewHolderB) {
         } else if (holder instanceof ViewHolderC) {
             List<ShouYeBean.RetBean.ListBean.ChildListBean> childList = shouYeBean.ret.list.get(4).childList;
-            HomeAdapter_three adapter_three = new HomeAdapter_three(childList, context);
+            HomeAdapter_three adapter_three = new HomeAdapter_three(childList, context,screenWidth);
             ((ViewHolderC) holder).Home_rv.setLayoutManager(new LinearLayoutManager(context));
             ((ViewHolderC) holder).Home_rv.setAdapter(adapter_three);
             adapter_three.setOnItemClieckLinster(new HomeAdapter_three.OnItemClieckLinster() {

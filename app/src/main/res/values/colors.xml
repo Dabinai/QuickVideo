@@ -41,4 +41,6 @@
     <color name="vk_share_link_title_color">#5477a3</color>
     <color name="vk_share_link_color">#9e9e9e</color>
 
+    <!--我的页面条目的底边框-->
+    <color name="mine_item_bottom_color">#90999f</color>
 </resources>
