@@ -1,0 +1,49 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\82004\\Desktop\\8D\\JiaoZiVideoPlayer-develop\\jiaozivideoplayer\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-zh\\values-zh.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\82004\\Desktop\\8D\\JiaoZiVideoPlayer-develop\\jiaozivideoplayer\\build\\intermediates\\bundles\\debug\\res\\values-zh\\values-zh.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,97,135,199,253",
+                        "endColumns": "41,37,63,53,54",
+                        "endOffsets": "92,130,194,248,303"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\AndroidShiZhan\\QuickVideo\\jiaozivideoplayer\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-zh\\values-zh.xml",
+            "map": [
+                {
+                    "source": "D:\\AndroidShiZhan\\QuickVideo\\jiaozivideoplayer\\build\\intermediates\\bundles\\debug\\res\\values-zh\\values-zh.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,97,135,199,253",
+                        "endColumns": "41,37,63,53,54",
+                        "endOffsets": "92,130,194,248,303"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\AndroidShiZhan\\QuickVideo\\jiaozivideoplayer\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-zh\\values-zh.xml",
+            "map": [
+                {
+                    "source": "D:\\AndroidShiZhan\\QuickVideo\\jiaozivideoplayer\\build\\intermediates\\bundles\\debug\\res\\values-zh\\values-zh.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,97,135,199,253",
+                        "endColumns": "41,37,63,53,54",
+                        "endOffsets": "92,130,194,248,303"
+                    }
+                }
+            ]
+        }
+    ]
+}
