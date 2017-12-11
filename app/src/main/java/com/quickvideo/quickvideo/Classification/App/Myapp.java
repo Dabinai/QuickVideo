@@ -8,6 +8,7 @@ import android.util.Log;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.quickvideo.quickvideo.client.WlUtils;
 import com.quickvideo.quickvideo.mine.sqlite.OpenHelperManager;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -54,6 +55,8 @@ public class Myapp extends Application {
         if (allActivities == null) {
             allActivities = new HashSet<Activity>();
         }
+        WlUtils.getNetInfor(act);
+
         allActivities.add(act);
         //Logger.d("添加成功");
         //Log.d("Ddddd", "registerActivity: 添加成功");

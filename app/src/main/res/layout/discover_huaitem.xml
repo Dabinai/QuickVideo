@@ -60,9 +60,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ellipsize="end"
-            android:lines="3"
-            android:maxEms="30"
+            android:lines="1"
             android:text="11"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:maxLines="2"
+            android:singleLine="false"
+            />
     </LinearLayout>
 </LinearLayout>

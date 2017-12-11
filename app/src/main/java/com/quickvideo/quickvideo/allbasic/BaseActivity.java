@@ -91,6 +91,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void init() {
         setTranslucentStatus(true); //沉浸式
         Myapp.registerActivity(this); //登记Activity
+
     }
 
     //沉浸式
