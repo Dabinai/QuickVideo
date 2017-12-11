@@ -1,1 +1,1 @@
-include ':app', ':swilibrary'
+include ':app', ':swilibrary', ':jiaozivideoplayer'
