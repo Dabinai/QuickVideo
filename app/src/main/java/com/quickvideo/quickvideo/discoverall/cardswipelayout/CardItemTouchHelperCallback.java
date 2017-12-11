@@ -45,7 +45,7 @@ public class CardItemTouchHelperCallback<T> extends ItemTouchHelper.Callback {
         int swipeFlags = 0;
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         if (layoutManager instanceof CardLayoutManager) {
-            swipeFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+            swipeFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT|ItemTouchHelper.UP|ItemTouchHelper.DOWN;
         }
         return makeMovementFlags(dragFlags, swipeFlags);
     }

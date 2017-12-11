@@ -227,9 +227,9 @@ public class PageVideo extends MySwipeBackActivity {
         }
     }
 
-    @OnClick(R.id.voide_img)
+   /* @OnClick(R.id.voide_img)
     public void onViewClicked() {
-    }
+    }*/
 
 
     class MyPageAdapter extends FragmentPagerAdapter {
