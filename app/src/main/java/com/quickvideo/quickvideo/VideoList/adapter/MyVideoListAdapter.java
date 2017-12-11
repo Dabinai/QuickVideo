@@ -24,10 +24,12 @@ import java.util.List;
 public class MyVideoListAdapter extends XRecyclerView.Adapter<MyVideoListAdapter.ViewHolder> {
     public Context context;
     public List<PinDaoBean.RetBean.ListBean> vlist;
+    int scWidth;
 
-    public MyVideoListAdapter(Context context, List<PinDaoBean.RetBean.ListBean> vlist) {
+    public MyVideoListAdapter(Context context, List<PinDaoBean.RetBean.ListBean> vlist,int scWidth) {
         this.context = context;
         this.vlist = vlist;
+        this.scWidth = scWidth;
     }
 
     @Override
@@ -42,7 +44,9 @@ public class MyVideoListAdapter extends XRecyclerView.Adapter<MyVideoListAdapter
     @Override
     public void onBindViewHolder(MyVideoListAdapter.ViewHolder holder, final int position) {
 
-        Glide.with(context).load(vlist.get(position).pic).into(holder.videolistitem_img);
+        Glide.with(context)
+                .load(vlist.get(position).pic)
+                .into(holder.videolistitem_img);
         holder.videolistitem_tv.setText(vlist.get(position).title);
         if (listner != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -88,4 +92,6 @@ public class MyVideoListAdapter extends XRecyclerView.Adapter<MyVideoListAdapter
             videolistitem_tv = itemView.findViewById(R.id.videolistitem_tv);
         }
     }
+
+
 }

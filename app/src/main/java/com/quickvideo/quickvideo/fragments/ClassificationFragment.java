@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,7 @@ public class ClassificationFragment extends Fragment implements IClassificationV
     private Handler handler = new Handler();
     private MyClassificationAdapter myClassificationAdapter;
     private String trim;
+    int screenWidth;
 
     @Nullable
     @Override
@@ -74,7 +76,7 @@ public class ClassificationFragment extends Fragment implements IClassificationV
             }
         });
 
-
+        getMetrics();
         return view;
     }
 
@@ -102,7 +104,7 @@ public class ClassificationFragment extends Fragment implements IClassificationV
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    myClassificationAdapter = new MyClassificationAdapter(getActivity(), list);
+                    myClassificationAdapter = new MyClassificationAdapter(getActivity(), list,screenWidth);
                     recyclerview.setAdapter(myClassificationAdapter);
                     //点击事件
                     myClassificationAdapter.setLisner(new OnClickRecyclerListner() {
@@ -138,5 +140,16 @@ public class ClassificationFragment extends Fragment implements IClassificationV
         }
 
 
+    }
+    //获取屏幕宽度,高度
+    public int getMetrics(){
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
+
+        Log.d("首页", "onCreate: 屏幕宽度"+ screenWidth +"------高度:"+screenHeight);
+        return screenWidth;
     }
 }
