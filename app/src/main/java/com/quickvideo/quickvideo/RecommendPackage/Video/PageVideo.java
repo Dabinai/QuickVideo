@@ -7,16 +7,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dou361.ijkplayer.widget.PlayStateParams;
 import com.dou361.ijkplayer.widget.PlayerView;
+import com.quickvideo.quickvideo.Classification.App.Myapp;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.RecommendPackage.Frment.Comment;
 import com.quickvideo.quickvideo.RecommendPackage.Frment.Intro;
@@ -25,6 +32,7 @@ import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.bean.XiangQingBean;
 import com.quickvideo.quickvideo.client.API;
 import com.quickvideo.quickvideo.client.ApiService;
+import com.quickvideo.quickvideo.mine.bean.Bean;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -56,7 +64,12 @@ public class PageVideo extends MySwipeBackActivity {
     @BindView(R.id.VP)
     ViewPager VP;
     String wjj;
-
+    boolean a = true;
+    Animation animation;
+    String pic;
+    String title;
+    @BindView(R.id.voide_img)
+    ImageView voideImg;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,6 +95,9 @@ public class PageVideo extends MySwipeBackActivity {
                     @Override
                     public void onNext(XiangQingBean xiangQingBean) {
                         String smoothURL = xiangQingBean.ret.smoothURL;
+                        pic = xiangQingBean.ret.pic;
+                        title = xiangQingBean.ret.title;
+
                         playerView = new PlayerView(PageVideo.this)
                                 .setTitle(xiangQingBean.ret.title)
                                 .setScaleType(PlayStateParams.fitparent)
@@ -100,6 +116,35 @@ public class PageVideo extends MySwipeBackActivity {
 
                     }
                 });
+        if (a) {
+            a = false;
+            voideImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /**
+                     * 在点击的时候获取值然后存到数据库
+                     * 收藏
+                     * 界面就可以接收显示数据
+                     */
+                    Bean bean = new Bean(title, pic);
+                    //使用数据库存储数据
+                    boolean b = Myapp.getManager().ifEqualsTwo(bean);
+                    if (b) {
+
+                    } else {
+                        Myapp.getManager().putShuju(bean);
+                    }
+                    //  voideImg.startAnimation(animation);
+                    createAnimationSet();
+
+                    Toast.makeText(PageVideo.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            a = true;
+            Glide.with(PageVideo.this).load(R.mipmap.collection).into(voideImg);
+
+        }
         list = new ArrayList<>();
         list.add(new Intro());
         list.add(new Comment());
@@ -182,6 +227,10 @@ public class PageVideo extends MySwipeBackActivity {
         }
     }
 
+    @OnClick(R.id.voide_img)
+    public void onViewClicked() {
+    }
+
 
     class MyPageAdapter extends FragmentPagerAdapter {
 
@@ -218,5 +267,38 @@ public class PageVideo extends MySwipeBackActivity {
 
     }
 
+    private void createAnimationSet() {
+        AnimationSet animationSet = new AnimationSet(true);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 0.5f, 1f, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        RotateAnimation rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animationSet.setRepeatCount(Animation.INFINITE); // 动画重复次数，INFINITE表示多次
+
+        animationSet.setRepeatMode(Animation.REVERSE);// 重复模式，REVERSE表示从尾倒播
+        //TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f, Animation.ABSOLUTE, 100);    animationSet.addAnimation(alphaAnimation);
+        animationSet.addAnimation(scaleAnimation);
+        animationSet.addAnimation(rotateAnimation);
+        //animationSet.addAnimation(translateAnimation);
+
+        animationSet.setDuration(2000);
+        animationSet.setRepeatCount(-1);
+        voideImg.startAnimation(animationSet);
+        animationSet.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Glide.with(PageVideo.this).load(R.mipmap.collection_select).into(voideImg);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+    }
 
 }

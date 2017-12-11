@@ -6,17 +6,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.RecommendPackage.Video.PageVideo;
 import com.quickvideo.quickvideo.RecommendPackage.adapter.DetailsAdapter;
-import com.quickvideo.quickvideo.RecommendPackage.adapter.PLAdapter;
 import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.bean.XiangQingBean;
 import com.quickvideo.quickvideo.client.API;
@@ -29,6 +28,7 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -51,8 +51,21 @@ public class Intro extends Fragment {
     TextView introTv1;
     @BindView(R.id.intro_tv2)
     TextView introTv2;
+    @BindView(R.id.text_content)
+    TextView textContent;
+    @BindView(R.id.spread)
+    TextView spread;
+    @BindView(R.id.shrink_up)
+    TextView shrinkUp;
+    @BindView(R.id.show_more)
+    RelativeLayout showMore;
     private String url;
     String wjj;
+    private static final int VIDEO_CONTENT_DESC_MAX_LINE = 1;// 默认展示最大行数3行
+    private static final int SHOW_CONTENT_NONE_STATE = 0;// 扩充
+    private static final int SHRINK_UP_STATE = 1;// 收起状态
+    private static final int SPREAD_STATE = 2;// 展开状态
+    private static int mState = SHRINK_UP_STATE;//默认收起状态
 
     @Nullable
     @Override
@@ -81,8 +94,10 @@ public class Intro extends Fragment {
                     public void onNext(XiangQingBean xiangQingBean) {
                         xiangQingBean = xiangQingBean;
                         //赋值
-                        introTv1.setText("导演"+xiangQingBean.ret.director);
-                        introTv2.setText("演员："+xiangQingBean.ret.actors);
+                        introTv1.setText("导演" + xiangQingBean.ret.director);
+                        introTv2.setText("演员：" + xiangQingBean.ret.actors);
+                        textContent.setText("简介: "+xiangQingBean.ret.description);
+
                         DetailsAdapter adapter = new DetailsAdapter(getActivity(), xiangQingBean);
                         final XiangQingBean finalXiangQingBean = xiangQingBean;
                         adapter.setOnItemClieckLinster(new DetailsAdapter.OnItemClieckLinster() {
@@ -91,7 +106,7 @@ public class Intro extends Fragment {
                                 // String dataId1 = shouYeBean.ret.list.get(4).childList.get(pos).dataId;
                                 //EventBus.getDefault().postSticky(new FirsEvent(dataId1));
                                 final String dataId = finalXiangQingBean.ret.list.get(0).childList.get(pos).dataId;
-                                Toast.makeText(getActivity(),dataId,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), dataId, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getActivity(), PageVideo.class);
                                 EventBus.getDefault().postSticky(new FirsEvent(dataId));
                                 getActivity().finish();
@@ -112,11 +127,13 @@ public class Intro extends Fragment {
                 });
         return view;
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
     @Subscribe(sticky = true)
     public void wjj(FirsEvent firsEvent) {
         wjj = firsEvent.getWjj();
@@ -129,4 +146,20 @@ public class Intro extends Fragment {
     }
 
 
+    @OnClick(R.id.show_more)
+    public void onViewClicked() {
+        if (mState == SPREAD_STATE) {
+            textContent.setMaxLines(VIDEO_CONTENT_DESC_MAX_LINE);
+            textContent.requestLayout();
+            shrinkUp.setVisibility(View.GONE);
+            spread.setVisibility(View.VISIBLE);
+            mState = SHRINK_UP_STATE;
+        } else if (mState == SHRINK_UP_STATE) {
+            textContent.setMaxLines(Integer.MAX_VALUE);
+            textContent.requestLayout();
+            shrinkUp.setVisibility(View.VISIBLE);
+            spread.setVisibility(View.GONE);
+            mState = SPREAD_STATE;
+        }
+    }
 }
