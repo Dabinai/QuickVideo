@@ -43,4 +43,6 @@
 
     <!--我的页面条目的底边框-->
     <color name="mine_item_bottom_color">#90999f</color>
+    <!--专题页，向左滑动关闭Activity，背景改为透明-->
+    <color name="transparent">#03000000</color>
 </resources>

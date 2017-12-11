@@ -28,7 +28,10 @@
             android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".VideoList.View.VideoListActivity" />
+        <!--背景为透明-->
+        <activity android:name=".VideoList.View.VideoListActivity"
+            android:theme="@style/transparent"
+            />
         <activity
             android:name=".mine.view.activites.ThemeActivity"
             android:label="@string/theme_setting"

@@ -2,18 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="20dp"
+    android:padding="5dp"
     android:background="?attr/mainBgColor"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/class_img"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
+        android:background="#a6e6edef"
         android:layout_gravity="center"
-        android:layout_marginBottom="7dp"
-        fresco:placeholderImage="@mipmap/ic_launcher" />
+
+        >
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/class_img"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@mipmap/ic_launcher"
+            fresco:placeholderImageScaleType="fitCenter"
+            fresco:failureImage="@mipmap/icon_failure"
+            fresco:failureImageScaleType="centerInside"
+            fresco:retryImage="@mipmap/icon_retry"
+            fresco:retryImageScaleType="centerCrop"
+            fresco:progressBarImage="@mipmap/icon_progress_bar"
+            fresco:progressBarImageScaleType="centerInside"
+            fresco:progressBarAutoRotateInterval="1000"
+            fresco:fadeDuration="2000"
+            fresco:roundAsCircle="false"
+            android:padding="5dp"
+            />
+    </android.support.v7.widget.CardView>
 
     <TextView
         android:id="@+id/class_tv"
