@@ -157,7 +157,7 @@ public class PageVideo extends MySwipeBackActivity {
             WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
             int height = windowManager.getDefaultDisplay().getHeight();
             ViewGroup.LayoutParams layoutParams = findViewById(R.id.app_video_box).getLayoutParams();
-            layoutParams.height = 180;
+            layoutParams.height = 250;
 
         }
         super.onConfigurationChanged(newConfig);

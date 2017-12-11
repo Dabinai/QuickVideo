@@ -22,7 +22,7 @@ public class WlUtils {
         NetworkInfo info = manager.getActiveNetworkInfo();
         //网络状态存在并且是已连接状态
         if (info != null && info.isConnected()) {
-            Toast.makeText(activity, "网络已连接", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(activity, "网络已连接", Toast.LENGTH_SHORT).show();
             //执行下面的操作
 
         } else {

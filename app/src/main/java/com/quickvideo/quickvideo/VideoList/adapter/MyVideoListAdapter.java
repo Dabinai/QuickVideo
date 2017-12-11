@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.quickvideo.quickvideo.Classification.adapter.MyClassificationAdapter;
 import com.quickvideo.quickvideo.R;
@@ -43,10 +44,8 @@ public class MyVideoListAdapter extends XRecyclerView.Adapter<MyVideoListAdapter
 
     @Override
     public void onBindViewHolder(MyVideoListAdapter.ViewHolder holder, final int position) {
+        holder.videolistitem_img.setImageURI(vlist.get(position).pic);
 
-        Glide.with(context)
-                .load(vlist.get(position).pic)
-                .into(holder.videolistitem_img);
         holder.videolistitem_tv.setText(vlist.get(position).title);
         if (listner != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +81,7 @@ public class MyVideoListAdapter extends XRecyclerView.Adapter<MyVideoListAdapter
 
     public class ViewHolder extends XRecyclerView.ViewHolder {
 
-        public ImageView videolistitem_img;
+        public SimpleDraweeView videolistitem_img;
         public TextView videolistitem_tv;
 
         public ViewHolder(View itemView) {

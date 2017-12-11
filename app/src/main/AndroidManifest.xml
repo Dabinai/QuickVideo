@@ -43,6 +43,8 @@
         <activity android:name=".mine.view.activites.SettingsActivity"
             android:theme="@style/transparent"/>
         <activity android:name=".RecommendPackage.Video.PageVideo"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensor"
             android:theme="@style/transparent"
             />
         <activity android:name=".serchaall.SearchActivity"

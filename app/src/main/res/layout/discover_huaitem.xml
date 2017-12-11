@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ellipsize="end"
-            android:lines="1"
+            android:lines="2"
             android:text="11"
             android:textColor="@android:color/white"
             android:maxLines="2"
