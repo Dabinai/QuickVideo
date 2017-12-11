@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.quickvideo.quickvideo.MainActivity;
 import com.quickvideo.quickvideo.R;
+import com.quickvideo.quickvideo.allbasic.DataCleanManager;
 import com.quickvideo.quickvideo.mine.adapter.MineGridAdapter;
 import com.quickvideo.quickvideo.mine.bean.Bean;
 import com.quickvideo.quickvideo.mine.bean.MineBean;
@@ -121,6 +122,9 @@ public class MineFragment extends Fragment {
                 break;
             case R.id.rel2_huancun:
                 showToast("缓存已清理！");
+                DataCleanManager.cleanInternalCache(getActivity());
+                DataCleanManager.cleanDatabases(getActivity());
+                DataCleanManager.cleanSharedPreference(getActivity());
                 break;
             case R.id.rel3_shoucang:
 //                跳转到收藏界面
