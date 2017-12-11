@@ -37,11 +37,18 @@
             android:label="@string/theme_setting"
             android:screenOrientation="portrait"
             android:theme="@style/AppDialog" />
-        <activity android:name=".mine.view.activites.LSSCActivity" />
-        <activity android:name=".mine.view.activites.SettingsActivity" />
-        <activity android:name=".RecommendPackage.Video.PageVideo" />
-        <activity android:name=".serchaall.SearchActivity" />
-        <activity android:name=".serchaall.Search" />
+        <activity android:name=".mine.view.activites.LSSCActivity"
+            android:theme="@style/transparent"
+            />
+        <activity android:name=".mine.view.activites.SettingsActivity"
+            android:theme="@style/transparent"/>
+        <activity android:name=".RecommendPackage.Video.PageVideo"
+            android:theme="@style/transparent"
+            />
+        <activity android:name=".serchaall.SearchActivity"
+            android:theme="@style/transparent"/>
+        <activity android:name=".serchaall.Search"
+            android:theme="@style/transparent"/>
         <activity android:name=".leftmenu.view.WelfareActivity" />
         <activity android:name=".WelcomActivity">
             <intent-filter>

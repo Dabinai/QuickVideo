@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.quickvideo.quickvideo.Classification.App.Myapp;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.RecommendPackage.Video.PageVideo;
+import com.quickvideo.quickvideo.allbasic.MySwipeBackActivity;
 import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.mine.bean.Bean;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -33,7 +34,7 @@ import okhttp3.Call;
  * Created by Administrator on 2017/12/7.
  */
 
-public class SearchActivity extends Activity {
+public class SearchActivity extends MySwipeBackActivity {
     @BindView(R.id.recy)
     RecyclerView recy;
     @BindView(R.id.text)
@@ -41,13 +42,17 @@ public class SearchActivity extends Activity {
     private String keyword;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scond);
         ButterKnife.bind(this);
         keyword = getIntent().getStringExtra("keyword");
 
         ok();
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.scond;
     }
 
     private void ok() {

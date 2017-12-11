@@ -29,6 +29,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.quickvideo.quickvideo.MainActivity;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.allbasic.BaseActivity;
+import com.quickvideo.quickvideo.allbasic.MySwipeBackActivity;
 
 import java.util.Date;
 import java.util.Set;
@@ -37,7 +38,7 @@ import java.util.Set;
  * Created by Dabin on 2017/12/7.
  */
 
-public class Search extends Activity{
+public class Search extends MySwipeBackActivity{
 
     private EditText et_search;
     private TextView tv_tip;
@@ -50,11 +51,11 @@ public class Search extends Activity{
     private TextView search_text;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         Fresco.initialize(this);
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.search);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+       /* setContentView();*/
 
 
         // 初始化控件
@@ -169,7 +170,10 @@ public class Search extends Activity{
         queryData("");
     }
 
-
+    @Override
+    public int getLayout() {
+        return R.layout.search;
+    }
 
 
     /**
@@ -213,7 +217,7 @@ public class Search extends Activity{
         db.close();
     }
 
-    private void initView() {
+  /*  private void initView() {
         et_search = (EditText) findViewById(R.id.et_search);
         tv_tip = (TextView) findViewById(R.id.tv_tip);
         listView = (MyListView) findViewById(R.id.listView);
@@ -226,7 +230,22 @@ public class Search extends Activity{
         Drawable drawable = getResources().getDrawable(R.drawable.search);
         drawable.setBounds(0, 0, 60, 60);// 第一0是距左边距离，第二0是距上边距离，60分别是长宽
         et_search.setCompoundDrawables(drawable, null, null, null);// 只放左边
+    }*/
+
+    @Override
+    public void initView() {
+        super.initView();
+       et_search = (EditText) findViewById(R.id.et_search);
+        tv_tip = (TextView) findViewById(R.id.tv_tip);
+        listView = (MyListView) findViewById(R.id.listView);
+        tv_clear = (TextView) findViewById(R.id.tv_clear);
+        mistake_image= (ImageView) findViewById(R.id.mistake_image);
+        search_text= (TextView) findViewById(R.id.search_text);
+       //  search_recy=findViewById(R.id.search_recy);
+
+        // 调整EditText左边的搜索按钮的大小
+        Drawable drawable = getResources().getDrawable(R.drawable.ic_search_white_36dp);
+        drawable.setBounds(0, 0, 60, 60);// 第一0是距左边距离，第二0是距上边距离，60分别是长宽
+        et_search.setCompoundDrawables(drawable, null, null, null);// 只放左边
     }
-
-
 }

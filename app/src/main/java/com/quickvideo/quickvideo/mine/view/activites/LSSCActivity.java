@@ -7,6 +7,7 @@ import android.widget.GridView;
 import com.quickvideo.quickvideo.Classification.App.Myapp;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.allbasic.BaseActivity;
+import com.quickvideo.quickvideo.allbasic.MySwipeBackActivity;
 import com.quickvideo.quickvideo.mine.adapter.LSSCAdapter;
 import com.quickvideo.quickvideo.mine.adapter.MineGridAdapter;
 import com.quickvideo.quickvideo.mine.bean.Bean;
@@ -23,7 +24,7 @@ import butterknife.BindView;
  * 历史/收藏 界面
  */
 
-public class LSSCActivity extends BaseActivity {
+public  class LSSCActivity extends MySwipeBackActivity {
     @BindView(R.id.ls_sc_gridview)
     GridView lsScGridview;
     private int flag;
@@ -54,6 +55,7 @@ public class LSSCActivity extends BaseActivity {
         //获取标识，判断数据来自收藏还是历史
         flag = getIntent().getIntExtra("flag", 0);
     }
+
 
     @Override
     public int getLayout() {

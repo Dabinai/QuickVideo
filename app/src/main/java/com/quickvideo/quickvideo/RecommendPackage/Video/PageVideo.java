@@ -20,6 +20,7 @@ import com.dou361.ijkplayer.widget.PlayerView;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.RecommendPackage.Frment.Comment;
 import com.quickvideo.quickvideo.RecommendPackage.Frment.Intro;
+import com.quickvideo.quickvideo.allbasic.MySwipeBackActivity;
 import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.bean.XiangQingBean;
 import com.quickvideo.quickvideo.client.API;
@@ -44,7 +45,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PageVideo extends AppCompatActivity {
+public class PageVideo extends MySwipeBackActivity {
     List<Fragment> list;
     PlayerView playerView;
     MyPageAdapter adapter;
@@ -58,9 +59,8 @@ public class PageVideo extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_page_video);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         Retrofit build = new Retrofit.Builder()
@@ -166,7 +166,7 @@ public class PageVideo extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         playerView.stopPlay();
     }
@@ -201,9 +201,14 @@ public class PageVideo extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.activity_page_video;
     }
 
 

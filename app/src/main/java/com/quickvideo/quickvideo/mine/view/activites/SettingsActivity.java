@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.quickvideo.quickvideo.MainActivity;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.allbasic.BaseActivity;
+import com.quickvideo.quickvideo.allbasic.MySwipeBackActivity;
 import com.quickvideo.quickvideo.leftmenu.utils.YijianDaiLog;
 
 import butterknife.BindView;
@@ -21,7 +22,7 @@ import butterknife.OnClick;
  * Created by lenovo on 2017/12/7.
  */
 
-public class SettingsActivity extends BaseActivity {
+public class SettingsActivity extends MySwipeBackActivity {
     @BindView(R.id.setting_tuijian)
     RelativeLayout settingTuijian;
     @BindView(R.id.setting_clear)
