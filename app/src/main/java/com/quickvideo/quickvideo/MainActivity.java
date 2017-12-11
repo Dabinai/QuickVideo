@@ -25,6 +25,7 @@ import com.quickvideo.quickvideo.fragments.DiscoverFragment;
 import com.quickvideo.quickvideo.fragments.RecommendFragment;
 import com.quickvideo.quickvideo.leftmenu.utils.YijianDaiLog;
 import com.quickvideo.quickvideo.leftmenu.view.WelfareActivity;
+import com.quickvideo.quickvideo.listVideo.LisVideotActivity;
 import com.quickvideo.quickvideo.mainui.MenusAdapter;
 import com.quickvideo.quickvideo.mainui.ResideLayout;
 
@@ -140,6 +141,7 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 1:
                         Toast.makeText(MainActivity.this, "我的下载", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, LisVideotActivity.class));
                         break;
                     case 2:
                         Toast.makeText(MainActivity.this, "福利", Toast.LENGTH_SHORT).show();
