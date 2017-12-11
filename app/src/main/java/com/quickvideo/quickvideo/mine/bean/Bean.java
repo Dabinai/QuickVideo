@@ -13,6 +13,11 @@ public class Bean {
 
     }
 
+    public Bean(String name, String pic) {
+        this.name = name;
+        this.pic = pic;
+    }
+
     public Bean(String name, String pic, int tag) {
         this.name = name;
         this.pic = pic;

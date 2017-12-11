@@ -8,6 +8,7 @@
     android:background="?attr/menuBackground"
     tools:context="com.quickvideo.quickvideo.RecommendPackage.Video.PageVideo">
     <include
+        android:layout_marginTop="10dp"
         layout="@layout/simple_player_view_player"
         android:layout_width="match_parent"
         android:layout_height="250dp"
