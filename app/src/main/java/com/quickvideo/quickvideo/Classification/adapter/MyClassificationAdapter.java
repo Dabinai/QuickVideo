@@ -22,10 +22,12 @@ import java.util.List;
 public class MyClassificationAdapter extends XRecyclerView.Adapter<MyClassificationAdapter.ViewHolder>{
     public Context context;
     public List<ShouYeBean.RetBean.ListBean> list;
+    int screenWidth;
 
-    public MyClassificationAdapter(Context context, List<ShouYeBean.RetBean.ListBean> list) {
+    public MyClassificationAdapter(Context context, List<ShouYeBean.RetBean.ListBean> list,int screenWidth) {
         this.context = context;
         this.list = list;
+        this.screenWidth = screenWidth;
     }
 
     @Override

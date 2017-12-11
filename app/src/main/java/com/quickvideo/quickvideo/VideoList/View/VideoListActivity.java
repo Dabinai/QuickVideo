@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -47,6 +48,7 @@ public class VideoListActivity extends SwipeBackActivity  implements VideoListVi
     private Handler handler = new Handler();
     private MyVideoListAdapter myVideoListAdapter;
     private int pnum;
+    int scWidth;
     List<PinDaoBean.RetBean.ListBean> dlist = new ArrayList<>();
 
 
@@ -67,7 +69,7 @@ public class VideoListActivity extends SwipeBackActivity  implements VideoListVi
         VideoListPresenter presenter = new VideoListPresenter(this);
         presenter.getVideoData(pnum + "");
 
-
+        getMetrics();
 
 
     }
@@ -89,7 +91,7 @@ public class VideoListActivity extends SwipeBackActivity  implements VideoListVi
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    myVideoListAdapter = new MyVideoListAdapter(VideoListActivity.this, vlist);
+                    myVideoListAdapter = new MyVideoListAdapter(VideoListActivity.this, vlist,scWidth);
                     xrecyclerview.setAdapter(myVideoListAdapter);
 
                     myVideoListAdapter.setLisner(new OnClickRecyclerListner() {
@@ -154,5 +156,16 @@ public class VideoListActivity extends SwipeBackActivity  implements VideoListVi
     @OnClick(R.id.video_img)
     public void onViewClicked() {
         finish();
+    }
+    //获取屏幕宽度,高度
+    public int getMetrics(){
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
+
+        Log.d("专题", "onCreate: 屏幕宽度"+ screenWidth +"------高度:"+screenHeight);
+        return scWidth;
     }
 }
