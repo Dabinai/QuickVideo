@@ -9,6 +9,14 @@
     <attr name="mainPrimaryLightTextColor" format="color" />
     <attr name="mainBgColor" format="color" />
 
+    <!--首页背景-->
+    <attr name="menuBackground" format="reference" />
+    <!--我的界面背景-->
+    <attr name="mine_background" format="reference" />
+    <!--卡片背景-->
+    <attr name="card_background" format="reference" />
+    <!--侧滑背景-->
+    <attr name="slidingmenubackground" format="reference"/>
 
     <declare-styleable name="Theme_Btn">
         <attr name="bg_color" format="color" />

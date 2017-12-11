@@ -26,6 +26,13 @@
 
     <!--主题切换专用styles  for powersen-->
     <style name="AppTheme.Default">
+
+        <item name="background">@mipmap/bg_blue</item>
+        <item name="mine_background">@mipmap/blue_bg_3</item>
+        <item name="card_background">@mipmap/star_bg_</item>
+        <item name="menuBackground">@mipmap/blue_bg_3</item>
+        <item name="slidingmenubackground">@mipmap/blue_bg_4</item>
+
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
@@ -34,14 +41,28 @@
     </style>
 
     <style name="AppTheme.Green">
+
+        <item name="background">@mipmap/yellow_bg</item>
+        <item name="mine_background">@mipmap/green_bg_1</item>
+        <item name="card_background">@mipmap/yellow_bg</item>
+        <item name="menuBackground">@mipmap/yellow_bg</item>
+        <item name="slidingmenubackground">@mipmap/green_bg_1</item>
+
         <item name="colorPrimary">#4CAF50</item>
         <item name="colorPrimaryDark">#388E3C</item>
         <item name="colorAccent">#9E9E9E</item>
         <item name="mainBgColor">#C8E6C9</item>
-        <item name="mainColor">#4CAF50</item>
+        <item name="mainColor">#388E3C</item>
     </style>
 
     <style name="AppTheme.Blue">
+
+        <item name="background">@mipmap/bg_blue</item>
+        <item name="mine_background">@mipmap/blue_bg_4</item>
+        <item name="card_background">@mipmap/binggan</item>
+        <item name="menuBackground">@mipmap/flower</item>
+        <item name="slidingmenubackground">@mipmap/blue_bg_2</item>
+
         <item name="colorPrimary">#2196F3</item>
         <item name="colorPrimaryDark">#1976D2</item>
         <item name="colorAccent">#607D8B</item>
@@ -50,6 +71,13 @@
     </style>
 
     <style name="AppTheme.Purple">
+
+        <item name="background">@mipmap/star_bg_</item>
+        <item name="mine_background">@mipmap/star_bg_</item>
+        <item name="card_background">@mipmap/star_bg_</item>
+        <item name="menuBackground">@mipmap/blue_bg_3</item>
+        <item name="slidingmenubackground">@mipmap/star_bg_</item>
+
         <item name="colorPrimary">#673AB7</item>
         <item name="colorPrimaryDark">#512DA8</item>
         <item name="colorAccent">#795548</item>
@@ -58,6 +86,14 @@
     </style>
 
     <style name="AppTheme.Grey">
+
+        <item name="background">@mipmap/star_bg_</item>
+        <item name="mine_background">@mipmap/star_bg_</item>
+        <item name="card_background">@mipmap/sunset_bg</item>
+        <item name="menuBackground">@mipmap/zongse_bg</item>
+        <item name="slidingmenubackground">@mipmap/sunset_bg</item>
+
+
         <item name="colorPrimary">#607D8B</item>
         <item name="colorPrimaryDark">#455A64</item>
         <item name="colorAccent">#FFC107</item>
@@ -66,6 +102,13 @@
     </style>
 
     <style name="AppTheme.Teal">
+        <item name="background">@mipmap/blue_bg_2</item>
+        <item name="mine_background">@mipmap/blue_bg_2</item>
+        <item name="card_background">@mipmap/blue_bg_2</item>
+        <item name="menuBackground">@mipmap/blue_bg_2</item>
+        <item name="slidingmenubackground">@mipmap/blue_bg_2</item>
+
+
         <item name="colorPrimary">#009688</item>
         <item name="colorPrimaryDark">#00796B</item>
         <item name="colorAccent">#7C4DFF</item>
@@ -74,6 +117,13 @@
     </style>
 
     <style name="AppTheme.Brown">
+
+        <item name="background">@mipmap/yezi</item>
+        <item name="mine_background">@mipmap/blue_bg_4</item>
+        <item name="card_background">@mipmap/green_bg_1</item>
+        <item name="menuBackground">@mipmap/yezi</item>
+        <item name="slidingmenubackground">@mipmap/yezi</item>
+
         <item name="colorPrimary">#795548</item>
         <item name="colorPrimaryDark">#5D4037</item>
         <item name="colorAccent">#4CAF50</item>
@@ -82,6 +132,13 @@
     </style>
 
     <style name="AppTheme.Orange">
+
+        <item name="background">@mipmap/zongse_bg</item>
+        <item name="mine_background">@mipmap/zongse_bg</item>
+        <item name="card_background">@mipmap/binggan</item>
+        <item name="menuBackground">@mipmap/zongse_bg</item>
+        <item name="slidingmenubackground">@mipmap/zongse_bg</item>
+
         <item name="colorPrimary">#FF9800</item>
         <item name="colorPrimaryDark">#F57C00</item>
         <item name="colorAccent">#607D8B</item>
