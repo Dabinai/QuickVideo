@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?attr/menuBackground"
     tools:context="com.quickvideo.quickvideo.RecommendPackage.Video.PageVideo">
     <include
         layout="@layout/simple_player_view_player"
