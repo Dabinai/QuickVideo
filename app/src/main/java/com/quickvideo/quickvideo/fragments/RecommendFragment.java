@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.RecommendPackage.RecommendPresenterPackage.RecommendPresenter;
 import com.quickvideo.quickvideo.RecommendPackage.RecommendViewPackage.Reco;
@@ -28,10 +29,10 @@ import com.quickvideo.quickvideo.bean.ShouYeBean;
  */
 
 public class RecommendFragment extends Fragment implements Reco {
-    RecyclerView xr;
+    XRecyclerView xr;
     //SwipeRefreshLayout mySwipeRefreshLayout;
     XRHomeAdapter xrHomeAdapter;
-    private Toolbar mToolBar;
+    //private Toolbar mToolBar;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class RecommendFragment extends Fragment implements Reco {
     }
     @Override
     public void getHomeMessage(ShouYeBean shouYeBean) {
+
         xrHomeAdapter = new XRHomeAdapter(shouYeBean,getActivity(),getMetrics());
         xr.setAdapter(xrHomeAdapter);
         //设置卷内的颜色

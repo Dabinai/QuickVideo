@@ -19,6 +19,7 @@ import com.quickvideo.quickvideo.bean.ShouYeBean;
 import com.quickvideo.quickvideo.client.GlideImage;
 
 import com.quickvideo.quickvideo.serchaall.Search;
+
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 

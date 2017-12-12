@@ -127,4 +127,5 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     implementation project(':jiaozivideoplayer')
+    compile 'com.xhb:xbanner:1.2.2'
 }
