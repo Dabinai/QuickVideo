@@ -92,29 +92,32 @@ public class Intro extends Fragment {
 
                     @Override
                     public void onNext(XiangQingBean xiangQingBean) {
-                        xiangQingBean = xiangQingBean;
-                        //赋值
-                        introTv1.setText("导演" + xiangQingBean.ret.director);
-                        introTv2.setText("演员：" + xiangQingBean.ret.actors);
-                        textContent.setText("简介: "+xiangQingBean.ret.description);
+                        if(xiangQingBean.msg.equals("视频已下线")){
+                            xiangQingBean = xiangQingBean;
+                            //赋值
+                            introTv1.setText("导演" + xiangQingBean.ret.director);
+                            introTv2.setText("演员：" + xiangQingBean.ret.actors);
+                            textContent.setText("简介: "+xiangQingBean.ret.description);
 
-                        DetailsAdapter adapter = new DetailsAdapter(getActivity(), xiangQingBean);
-                        final XiangQingBean finalXiangQingBean = xiangQingBean;
-                        adapter.setOnItemClieckLinster(new DetailsAdapter.OnItemClieckLinster() {
-                            @Override
-                            public void onItemClickListener(View view, int pos) {
-                                // String dataId1 = shouYeBean.ret.list.get(4).childList.get(pos).dataId;
-                                //EventBus.getDefault().postSticky(new FirsEvent(dataId1));
-                                final String dataId = finalXiangQingBean.ret.list.get(0).childList.get(pos).dataId;
-                                Toast.makeText(getActivity(), dataId, Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getActivity(), PageVideo.class);
-                                EventBus.getDefault().postSticky(new FirsEvent(dataId));
-                                getActivity().finish();
-                                startActivity(intent);
-                            }
-                        });
-                        introRv.setVisibility(View.VISIBLE);
-                        introRv.setAdapter(adapter);
+                            DetailsAdapter adapter = new DetailsAdapter(getActivity(), xiangQingBean);
+                            final XiangQingBean finalXiangQingBean = xiangQingBean;
+                            adapter.setOnItemClieckLinster(new DetailsAdapter.OnItemClieckLinster() {
+                                @Override
+                                public void onItemClickListener(View view, int pos) {
+                                    // String dataId1 = shouYeBean.ret.list.get(4).childList.get(pos).dataId;
+                                    //EventBus.getDefault().postSticky(new FirsEvent(dataId1));
+                                    final String dataId = finalXiangQingBean.ret.list.get(0).childList.get(pos).dataId;
+                                    Toast.makeText(getActivity(), dataId, Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getActivity(), PageVideo.class);
+                                    EventBus.getDefault().postSticky(new FirsEvent(dataId));
+                                    getActivity().finish();
+                                    startActivity(intent);
+                                }
+                            });
+                            introRv.setVisibility(View.VISIBLE);
+                            introRv.setAdapter(adapter);
+                        }
+
                     }
 
                     @Override

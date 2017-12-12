@@ -56,9 +56,15 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.MyXQView
 
     @Override
     public int getItemCount() {
-        return xiangQingBean.ret.list.get(0).childList.size();
-
+        if (!xiangQingBean.msg.equals("视频已下线")) {
+            return xiangQingBean.ret.list.get(0).childList.size();
+        }else{
+            return 0;
+        }
     }
+
+
+
 
     public class MyXQViewHolder extends RecyclerView.ViewHolder {
         SimpleDraweeView img;

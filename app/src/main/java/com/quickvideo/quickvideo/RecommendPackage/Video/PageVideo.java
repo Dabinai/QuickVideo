@@ -33,6 +33,7 @@ import com.quickvideo.quickvideo.bean.XiangQingBean;
 import com.quickvideo.quickvideo.client.API;
 import com.quickvideo.quickvideo.client.ApiService;
 import com.quickvideo.quickvideo.mine.bean.Bean;
+import com.quickvideo.quickvideo.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -84,6 +85,7 @@ public class PageVideo extends MySwipeBackActivity {
         ApiService apiService = build.create(ApiService.class);
         HashMap<String, String> map = new HashMap<>();
         map.put("mediaId", wjj);
+        Toast.makeText(mContext, wjj, Toast.LENGTH_SHORT).show();
         Observable<XiangQingBean> getshow = apiService.getXiangQData(map);
         getshow.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -94,17 +96,22 @@ public class PageVideo extends MySwipeBackActivity {
 
                     @Override
                     public void onNext(XiangQingBean xiangQingBean) {
-                        String smoothURL = xiangQingBean.ret.smoothURL;
-                        pic = xiangQingBean.ret.pic;
-                        title = xiangQingBean.ret.title;
+                        if(xiangQingBean.msg.equals("视频已下线")){
+                            Toast.makeText(mContext, "视频已下线", Toast.LENGTH_SHORT).show();
+                        }else{
+                            String smoothURL = xiangQingBean.ret.smoothURL;
+                            pic = xiangQingBean.ret.pic;
+                            title = xiangQingBean.ret.title;
 
-                        playerView = new PlayerView(PageVideo.this)
-                                .setTitle(xiangQingBean.ret.title)
-                                .setScaleType(PlayStateParams.fitparent)
-                                .hideMenu(true)
-                                .forbidTouch(false)
-                                .setPlaySource(smoothURL)
-                                .startPlay();
+                            playerView = new PlayerView(PageVideo.this)
+                                    .setTitle(xiangQingBean.ret.title)
+                                    .setScaleType(PlayStateParams.fitparent)
+                                    .hideMenu(true)
+                                    .forbidTouch(false)
+                                    .setPlaySource(smoothURL)
+                                    .startPlay();
+                        }
+
                     }
 
                     @Override
@@ -213,7 +220,10 @@ public class PageVideo extends MySwipeBackActivity {
     @Override
     public void onStop() {
         super.onStop();
-        playerView.stopPlay();
+        if(playerView!=null){
+            playerView.stopPlay();
+        }
+
     }
 
     @OnClick({R.id.jianjie, R.id.pinlun})
