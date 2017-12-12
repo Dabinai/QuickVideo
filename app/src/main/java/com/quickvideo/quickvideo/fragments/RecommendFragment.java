@@ -1,5 +1,6 @@
 package com.quickvideo.quickvideo.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -13,13 +14,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.RecommendPackage.RecommendPresenterPackage.RecommendPresenter;
 import com.quickvideo.quickvideo.RecommendPackage.RecommendViewPackage.Reco;
 import com.quickvideo.quickvideo.RecommendPackage.adapter.XRHomeAdapter;
+import com.quickvideo.quickvideo.activity.PageVideoActivity;
+import com.quickvideo.quickvideo.activity.SearchActivity;
+import com.quickvideo.quickvideo.activity.SearchsActivity;
+import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.bean.ShouYeBean;
+import com.stx.xhb.xbanner.XBanner;
+import com.stx.xhb.xbanner.transformers.Transformer;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 
 /**
  * Created by Dabin on 2017/12/4.
@@ -32,6 +46,9 @@ public class RecommendFragment extends Fragment implements Reco {
     XRecyclerView xr;
     //SwipeRefreshLayout mySwipeRefreshLayout;
     XRHomeAdapter xrHomeAdapter;
+    private XBanner xBanner;
+    private RelativeLayout relativeLayout;
+
     //private Toolbar mToolBar;
     @Nullable
     @Override
@@ -44,6 +61,17 @@ public class RecommendFragment extends Fragment implements Reco {
         mToolBar.setTitle("这是标题");
 
         mToolBar.inflateMenu(R.menu.menu);*/
+
+        View abnv = View.inflate(getActivity(), R.layout.recommend_1, null);
+        xBanner = abnv.findViewById(R.id.Slider);
+        relativeLayout = abnv.findViewById(R.id.rlGoSearch);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().startActivity(new Intent(getActivity(),SearchsActivity.class));
+            }
+        });
+        xr.addHeaderView(abnv);
         RecommendPresenter recommendPresenter = new RecommendPresenter(this);
         recommendPresenter.getmessage();
         xr.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -52,7 +80,36 @@ public class RecommendFragment extends Fragment implements Reco {
         return view;
     }
     @Override
-    public void getHomeMessage(ShouYeBean shouYeBean) {
+    public void getHomeMessage(final ShouYeBean shouYeBean) {
+
+        final ArrayList mlist = new ArrayList();
+        for (int i = 0; i < shouYeBean.ret.list.get(0).childList.size(); i++) {
+            mlist.add(shouYeBean.ret.list.get(0).childList.get(i).pic);
+        }
+        xBanner.setData(mlist, null);
+        xBanner.setmAutoPalyTime(2500);
+        // 设置XBanner的页面切换特效
+        xBanner.setPageTransformer(Transformer.Zoom);
+        // 设置XBanner页面切换的时间，即动画时长
+//        mybanner.setPageChangeDuration(1000);
+        xBanner.setmAdapter(new XBanner.XBannerAdapter() {
+            @Override
+            public void loadBanner(XBanner banner, View view, int position) {
+                Glide.with(getActivity()).load(mlist.get(position)).into((ImageView) view);
+            }
+        });
+        xBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
+
+            private String dataId;
+
+            @Override
+            public void onItemClick(XBanner banner, int position) {
+                String dataId = shouYeBean.ret.list.get(0).childList.get(position).dataId;
+                Intent intent = new Intent(getActivity(), PageVideoActivity.class);
+                EventBus.getDefault().postSticky(new FirsEvent(dataId));
+                getActivity().startActivity(intent);
+            }
+        });
 
         xrHomeAdapter = new XRHomeAdapter(shouYeBean,getActivity(),getMetrics());
         xr.setAdapter(xrHomeAdapter);

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AlertDialog;
@@ -17,21 +16,21 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
-import com.quickvideo.quickvideo.Classification.App.Myapp;
+import com.quickvideo.quickvideo.activity.LSSCActivity;
+import com.quickvideo.quickvideo.activity.ThemeActivity;
+import com.quickvideo.quickvideo.activity.WelfareActivity;
+import com.quickvideo.quickvideo.allbasic.Myapp;
 import com.quickvideo.quickvideo.allbasic.BaseActivity;
 import com.quickvideo.quickvideo.bean.MenuBean;
 import com.quickvideo.quickvideo.fragments.ClassificationFragment;
 import com.quickvideo.quickvideo.fragments.DiscoverFragment;
 import com.quickvideo.quickvideo.fragments.RecommendFragment;
 import com.quickvideo.quickvideo.leftmenu.utils.YijianDaiLog;
-import com.quickvideo.quickvideo.leftmenu.view.WelfareActivity;
-import com.quickvideo.quickvideo.listVideo.LisVideotActivity;
+import com.quickvideo.quickvideo.activity.LisVideotActivity;
 import com.quickvideo.quickvideo.mainui.MenusAdapter;
 import com.quickvideo.quickvideo.mainui.ResideLayout;
 
-import com.quickvideo.quickvideo.mine.view.activites.LSSCActivity;
-import com.quickvideo.quickvideo.mine.view.activites.SettingsActivity;
-import com.quickvideo.quickvideo.mine.view.activites.ThemeActivity;
+
 import com.quickvideo.quickvideo.mine.view.frag.MineFragment;
 
 import com.quickvideo.quickvideo.utils.NonSwipeableViewPager;
@@ -42,8 +41,6 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMWeb;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;

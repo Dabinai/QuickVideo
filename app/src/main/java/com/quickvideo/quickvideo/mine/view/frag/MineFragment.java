@@ -1,7 +1,6 @@
 package com.quickvideo.quickvideo.mine.view.frag;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,16 +16,14 @@ import android.widget.Toast;
 
 import com.quickvideo.quickvideo.MainActivity;
 import com.quickvideo.quickvideo.R;
-import com.quickvideo.quickvideo.allbasic.DataCleanManager;
+import com.quickvideo.quickvideo.activity.LSSCActivity;
+import com.quickvideo.quickvideo.activity.SettingsActivity;
+import com.quickvideo.quickvideo.activity.ThemeActivity;
+import com.quickvideo.quickvideo.clientutils.DataCleanManager;
 import com.quickvideo.quickvideo.mine.adapter.MineGridAdapter;
 import com.quickvideo.quickvideo.mine.bean.Bean;
-import com.quickvideo.quickvideo.mine.bean.MineBean;
-import com.quickvideo.quickvideo.mine.presenter.MinePresenter;
 import com.quickvideo.quickvideo.mine.sqlite.OpenHelperManager;
-import com.quickvideo.quickvideo.mine.view.MineView;
-import com.quickvideo.quickvideo.mine.view.activites.LSSCActivity;
-import com.quickvideo.quickvideo.mine.view.activites.SettingsActivity;
-import com.quickvideo.quickvideo.mine.view.activites.ThemeActivity;
+
 
 import java.util.List;
 

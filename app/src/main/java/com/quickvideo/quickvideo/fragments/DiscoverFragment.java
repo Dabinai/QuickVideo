@@ -1,46 +1,38 @@
 package com.quickvideo.quickvideo.fragments;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.quickvideo.quickvideo.activity.PageVideoActivity;
+import com.quickvideo.quickvideo.allbasic.Myapp;
 import com.quickvideo.quickvideo.R;
-import com.quickvideo.quickvideo.RecommendPackage.Video.PageVideo;
+
 import com.quickvideo.quickvideo.allbasic.BaseMVPFragment;
 import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.bean.PinDaoBean;
-import com.quickvideo.quickvideo.client.ApiService;
-import com.quickvideo.quickvideo.client.ClientUtils;
-import com.quickvideo.quickvideo.client.MyDialog;
-import com.quickvideo.quickvideo.discoverall.DiscoverAdapterHua;
-import com.quickvideo.quickvideo.discoverall.cardswipelayout.CardConfig;
-import com.quickvideo.quickvideo.discoverall.cardswipelayout.CardItemTouchHelperCallback;
-import com.quickvideo.quickvideo.discoverall.cardswipelayout.CardLayoutManager;
-import com.quickvideo.quickvideo.discoverall.cardswipelayout.OnSwipeListener;
-import com.quickvideo.quickvideo.discoverall.p.DisPresenter;
-import com.quickvideo.quickvideo.discoverall.v.DisIView;
+import com.quickvideo.quickvideo.clientutils.MyDialog;
+import com.quickvideo.quickvideo.discover.DiscoverAdapterHua;
+import com.quickvideo.quickvideo.discover.cardswipelayout.CardConfig;
+import com.quickvideo.quickvideo.discover.cardswipelayout.CardItemTouchHelperCallback;
+import com.quickvideo.quickvideo.discover.cardswipelayout.CardLayoutManager;
+import com.quickvideo.quickvideo.discover.cardswipelayout.OnSwipeListener;
+import com.quickvideo.quickvideo.discover.p.DisPresenter;
+import com.quickvideo.quickvideo.discover.v.DisIView;
+import com.quickvideo.quickvideo.mine.bean.Bean;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Dabin on 2017/12/4.
@@ -126,7 +118,23 @@ public class DiscoverFragment extends BaseMVPFragment<DisPresenter> implements D
             public void onItemClick(View view, int position) {
                 Toast.makeText(getActivity(), "" + list.get(position).title, Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().postSticky(new FirsEvent(list.get(position).dataId));
-                getActivity().startActivity(new Intent(getActivity(), PageVideo.class));
+                getActivity().startActivity(new Intent(getActivity(), PageVideoActivity.class));
+
+
+                /**
+                 * 在点击的时候获取值然后存到数据库
+                 * 历史界面就可以接收显示数据
+                 */
+                String title = list.get(position).title;
+                String pic = list.get(position).pic;
+                Bean bean = new Bean(title,pic,position);
+                //使用数据库存储数据
+                boolean b = Myapp.getManager().ifEquals(bean);
+                if (b) {
+
+                } else {
+                    Myapp.getManager().putData(bean);
+                }
             }
         });
     }

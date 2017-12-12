@@ -15,17 +15,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.quickvideo.quickvideo.Classification.App.Myapp;
-import com.quickvideo.quickvideo.Classification.adapter.MyClassificationAdapter;
-import com.quickvideo.quickvideo.Classification.presenter.IClassificationPresenter;
-import com.quickvideo.quickvideo.Classification.view.IClassificationView;
+import com.quickvideo.quickvideo.activity.VideoListActivity;
+import com.quickvideo.quickvideo.allbasic.Myapp;
+import com.quickvideo.quickvideo.classification.adapter.MyClassificationAdapter;
+import com.quickvideo.quickvideo.classification.presenter.IClassificationPresenter;
+import com.quickvideo.quickvideo.classification.view.IClassificationView;
 import com.quickvideo.quickvideo.R;
-import com.quickvideo.quickvideo.VideoList.View.VideoListActivity;
 import com.quickvideo.quickvideo.bean.ShouYeBean;
-import com.quickvideo.quickvideo.client.OnClickRecyclerListner;
+import com.quickvideo.quickvideo.clientutils.OnClickRecyclerListner;
 import com.quickvideo.quickvideo.mine.bean.Bean;
 
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;

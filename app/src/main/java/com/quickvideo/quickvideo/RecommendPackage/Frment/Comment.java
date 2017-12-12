@@ -7,18 +7,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.RecommendPackage.adapter.PLAdapter;
 import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.bean.PingLunBean;
-import com.quickvideo.quickvideo.client.API;
-import com.quickvideo.quickvideo.client.ApiService;
+import com.quickvideo.quickvideo.clientutils.API;
+import com.quickvideo.quickvideo.clientutils.ApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

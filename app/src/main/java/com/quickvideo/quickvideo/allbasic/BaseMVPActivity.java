@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 /**
  * Created by Dabin on 2017/12/7.
+ * BaseMVPActivity
  */
 
 public abstract class BaseMVPActivity<T extends BaseIPresenter> extends BaseActivity {

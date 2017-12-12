@@ -12,7 +12,6 @@ import android.view.WindowManager;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-import com.quickvideo.quickvideo.Classification.App.Myapp;
 import com.quickvideo.quickvideo.R;
 import com.quickvideo.quickvideo.mine.bean.Consts;
 
@@ -94,7 +93,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    //沉浸式
+    /*
+    * 沉浸式
+    * */
     public void setTranslucentStatus(boolean on) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window win = getWindow();
@@ -109,7 +110,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    //更换主题
+   /*
+   * 更换直题
+   * */
     public void setTheme() {
         SharedPreferences sharedPreferences = getSharedPreferences(
                 Consts.SHARE_NAME, MODE_PRIVATE);
@@ -143,7 +146,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         setTheme(themeId);
     }
 
-    //初始化布局文件
+    /*
+    * 初始化布局文件
+    * */
     public abstract int getLayout();
 
     //初始化数据
@@ -152,7 +157,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
 
-    //初始化View
+    /*
+    初始化控件
+     */
     public void initView() {
     }
 

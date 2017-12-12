@@ -6,6 +6,7 @@ import android.view.View;
 
 /**
  * Created by Dabin on 2017/12/10.
+ * BaseMVPFragment
  */
 
 public abstract  class BaseMVPFragment<T extends BaseIPresenter> extends BaseFragment{
@@ -19,7 +20,10 @@ public abstract  class BaseMVPFragment<T extends BaseIPresenter> extends BaseFra
         super.onViewCreated(view, savedInstanceState);
 
     }
-
+    /*
+    * 销毁时解绑V、P
+    *
+    * */
     @Override
     public void onDestroy() {
         if (mPresenter != null) mPresenter.detach();

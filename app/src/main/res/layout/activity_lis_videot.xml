@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.quickvideo.quickvideo.listVideo.LisVideotActivity">
+    tools:context="com.quickvideo.quickvideo.activity.LisVideotActivity">
     <ListView
         android:id="@+id/listvideoView"
         android:layout_width="match_parent"

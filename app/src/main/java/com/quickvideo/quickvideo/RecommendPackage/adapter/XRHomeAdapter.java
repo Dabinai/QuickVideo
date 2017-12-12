@@ -12,13 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quickvideo.quickvideo.R;
-import com.quickvideo.quickvideo.RecommendPackage.Video.PageVideo;
 
+
+import com.quickvideo.quickvideo.activity.PageVideoActivity;
+import com.quickvideo.quickvideo.activity.SearchsActivity;
 import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.bean.ShouYeBean;
-import com.quickvideo.quickvideo.client.GlideImage;
-
-import com.quickvideo.quickvideo.serchaall.Search;
+import com.quickvideo.quickvideo.clientutils.GlideImage;
 
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -50,12 +50,12 @@ public class XRHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == Item_Type.Type_one.ordinal()) {
+      /*  if (viewType == Item_Type.Type_one.ordinal()) {
             View mView = LayoutInflater.from(context).inflate(R.layout.recommend_1, null);
             ViewHolderA viewHolderA = new ViewHolderA(mView);
             return viewHolderA;
 
-        } else if (viewType == Item_Type.Type_two.ordinal()) {
+        } else */if (viewType == Item_Type.Type_two.ordinal()) {
             View mView2 = LayoutInflater.from(context).inflate(R.layout.recommend_2, null);
             ViewHolderB viewHolderB = new ViewHolderB(mView2);
             return viewHolderB;
@@ -69,7 +69,7 @@ public class XRHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof ViewHolderA) {
+      /*  if (holder instanceof ViewHolderA) {
             mlist = new ArrayList();
             for (int i = 0; i < shouYeBean.ret.list.get(0).childList.size(); i++) {
                 mlist.add(shouYeBean.ret.list.get(0).childList.get(i).pic);
@@ -82,13 +82,13 @@ public class XRHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 public void OnBannerClick(int position) {
 
                     String dataId = shouYeBean.ret.list.get(0).childList.get(position).dataId;
-                    Intent intent = new Intent(context, PageVideo.class);
+                    Intent intent = new Intent(context, PageVideoActivity.class);
                     EventBus.getDefault().postSticky(new FirsEvent(dataId));
                     context.startActivity(intent);
                 }
             });
 
-        } else if (holder instanceof ViewHolderB) {
+        } else*/ if (holder instanceof ViewHolderB) {
         } else if (holder instanceof ViewHolderC) {
             List<ShouYeBean.RetBean.ListBean.ChildListBean> childList = shouYeBean.ret.list.get(4).childList;
             HomeAdapter_three adapter_three = new HomeAdapter_three(childList, context,screenWidth);
@@ -98,7 +98,7 @@ public class XRHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onItemClickListener(View view, int pos) {
                     String dataId1 = shouYeBean.ret.list.get(4).childList.get(pos).dataId;
-                    Intent intent2 = new Intent(context, PageVideo.class);
+                    Intent intent2 = new Intent(context, PageVideoActivity.class);
                     EventBus.getDefault().postSticky(new FirsEvent(dataId1));
                     context.startActivity(intent2);
                 }
@@ -109,12 +109,12 @@ public class XRHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
+      /*  if (position == 0) {
             return Item_Type.Type_one.ordinal();
-        } else if (position == 1) {
+        } else */if (position == 0) {
             return Item_Type.Type_two.ordinal();
 
-        } else if (position == 2) {
+        } else if (position == 1) {
             return Item_Type.Type_three.ordinal();
         }
         return -1;
@@ -122,7 +122,7 @@ public class XRHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 2;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -132,7 +132,7 @@ public class XRHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     }
 
-    class ViewHolderA extends RecyclerView.ViewHolder {
+  /*  class ViewHolderA extends RecyclerView.ViewHolder {
         public Banner mbanner;
         // RelativeLayout
         RelativeLayout rlGoSearch;
@@ -146,11 +146,11 @@ public class XRHomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 public void onClick(View view) {
 
                     Toast.makeText(context, "ssss", Toast.LENGTH_SHORT).show();
-                  context.startActivity(new Intent(context,Search.class));
+                  context.startActivity(new Intent(context,SearchsActivity.class));
                 }
             });
         }
-    }
+    }*/
 
     class ViewHolderB extends RecyclerView.ViewHolder {
         TextView tv_2;

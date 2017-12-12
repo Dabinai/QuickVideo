@@ -14,12 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quickvideo.quickvideo.R;
-import com.quickvideo.quickvideo.RecommendPackage.Video.PageVideo;
+
 import com.quickvideo.quickvideo.RecommendPackage.adapter.DetailsAdapter;
+import com.quickvideo.quickvideo.activity.PageVideoActivity;
 import com.quickvideo.quickvideo.bean.FirsEvent;
 import com.quickvideo.quickvideo.bean.XiangQingBean;
-import com.quickvideo.quickvideo.client.API;
-import com.quickvideo.quickvideo.client.ApiService;
+import com.quickvideo.quickvideo.clientutils.API;
+import com.quickvideo.quickvideo.clientutils.ApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -92,7 +93,7 @@ public class Intro extends Fragment {
 
                     @Override
                     public void onNext(XiangQingBean xiangQingBean) {
-                        if(xiangQingBean.msg.equals("视频已下线")){
+                        if(!xiangQingBean.msg.equals("视频已下线")){
                             xiangQingBean = xiangQingBean;
                             //赋值
                             introTv1.setText("导演" + xiangQingBean.ret.director);
@@ -108,7 +109,7 @@ public class Intro extends Fragment {
                                     //EventBus.getDefault().postSticky(new FirsEvent(dataId1));
                                     final String dataId = finalXiangQingBean.ret.list.get(0).childList.get(pos).dataId;
                                     Toast.makeText(getActivity(), dataId, Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getActivity(), PageVideo.class);
+                                    Intent intent = new Intent(getActivity(), PageVideoActivity.class);
                                     EventBus.getDefault().postSticky(new FirsEvent(dataId));
                                     getActivity().finish();
                                     startActivity(intent);
@@ -139,7 +140,12 @@ public class Intro extends Fragment {
 
     @Subscribe(sticky = true)
     public void wjj(FirsEvent firsEvent) {
-        wjj = firsEvent.getWjj();
+        if(firsEvent.getWjj().equals("")){
+            wjj = "70cddbf9d84b4c72bd4311952f03b6d4";
+        }else{
+            wjj = firsEvent.getWjj();
+        }
+
     }
 
     @Override

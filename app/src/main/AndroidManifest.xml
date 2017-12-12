@@ -14,8 +14,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
     <application
-        android:name=".Classification.App.Myapp"
+        android:name=".allbasic.Myapp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,41 +26,22 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <!-- 背景为透明 -->
-        <activity
-            android:name=".VideoList.View.VideoListActivity"
-            android:theme="@style/transparent" />
-        <activity
-            android:name=".mine.view.activites.ThemeActivity"
+        <activity android:name=".activity.VideoListActivity"
+            android:theme="@style/transparent"/>
+        <activity android:name=".activity.ThemeActivity"
             android:label="@string/theme_setting"
             android:screenOrientation="portrait"
-            android:theme="@style/AppDialog" />
+            android:theme="@style/AppDialog"/>
+        <activity android:name=".activity.SettingsActivity"
+            android:theme="@style/transparent"/>
+        <activity android:name=".activity.LSSCActivity"
+            android:theme="@style/transparent"/>
+        <activity android:name=".activity.WelfareActivity" />
         <activity
-            android:name=".mine.view.activites.LSSCActivity"
+            android:name=".activity.SearchActivity"
             android:theme="@style/transparent" />
-        <activity
-            android:name=".mine.view.activites.SettingsActivity"
-            android:theme="@style/transparent" />
-        <activity
-            android:name=".RecommendPackage.Video.PageVideo"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="sensor"
-            android:theme="@style/transparent" />
-        <activity
-            android:name=".serchaall.SearchActivity"
-            android:theme="@style/transparent" />
-        <activity
-            android:name=".serchaall.Search"
-            android:theme="@style/transparent" />
-        <activity android:name=".leftmenu.view.WelfareActivity" />
-        <activity android:name=".WelcomActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <!-- QQ  start -->
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
@@ -85,7 +67,23 @@
             android:name="UMENG_APPKEY"
             android:value="5a2ba202f43e4843c6000376" />
 
-        <activity android:name=".listVideo.LisVideotActivity"></activity>
+        <activity android:name=".activity.LisVideotActivity" />
+        <activity android:name=".activity.WelcomActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.SearchsActivity"
+            android:theme="@style/transparent" />
+        <activity android:name=".activity.PageVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensor"
+            android:theme="@style/transparent"/>
+
+
     </application>
 
 </manifest>

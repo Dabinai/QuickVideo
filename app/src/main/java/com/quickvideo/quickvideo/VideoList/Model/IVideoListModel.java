@@ -1,9 +1,9 @@
 package com.quickvideo.quickvideo.VideoList.Model;
 
 import com.quickvideo.quickvideo.bean.PinDaoBean;
-import com.quickvideo.quickvideo.client.API;
-import com.quickvideo.quickvideo.client.ApiService;
-import com.quickvideo.quickvideo.client.ClientUtils;
+import com.quickvideo.quickvideo.clientutils.API;
+import com.quickvideo.quickvideo.clientutils.ApiService;
+import com.quickvideo.quickvideo.clientutils.ClientUtils;
 
 import java.util.HashMap;
 
